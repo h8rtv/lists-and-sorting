@@ -3,9 +3,15 @@
 #include <stdlib.h>
 #include "../Pessoa/Pessoa.h"
 
-const int SIZE_ALOCACAO = 10;
+const int SIZE_ALOCACAO = 100;
 
 using namespace std;
+
+
+template <class Tipo>
+Tipo& ListaSequencial<Tipo>::operator[] (int pos) {
+  return listaSequencial[pos];
+}
 
 template <class Tipo>
 ListaSequencial<Tipo>::ListaSequencial(int _tamanho) {
@@ -20,6 +26,7 @@ ListaSequencial<Tipo>::ListaSequencial(int _tamanho) {
 
 template <class Tipo>
 ListaSequencial<Tipo>::~ListaSequencial() {
+  delete[] listaSequencial;
 }
 
 template <class Tipo>
@@ -44,15 +51,24 @@ Tipo* ListaSequencial<Tipo>::get(int pos) {
 }
 
 template <class Tipo>
-void ListaSequencial<Tipo>::instanciar(int _tamanho) {
+void ListaSequencial<Tipo>::limparLista() {
+  delete[] listaSequencial;
+  listaSequencial = NULL;
+  tamanho = 0;
+  espacoAlocado = 0;   
+}
+
+template <class Tipo>
+void ListaSequencial<Tipo>::instanciar(int tamanho) {
   if (listaSequencial != NULL) {
-    delete[] listaSequencial;
-    listaSequencial = NULL;
-  }
-  listaSequencial = new (nothrow) Tipo[tamanho];
-  if (listaSequencial == NULL) {
-    cout << "Não foi possível alocar " << sizeof(Tipo) * tamanho << " bytes." << endl;
-    exit(1);
+    limparLista();
+  } else {
+    listaSequencial = new (nothrow) Tipo[tamanho];
+    if (listaSequencial == NULL) {
+      cout << "Não foi possível alocar " << sizeof(Tipo) * tamanho << " bytes." << endl;
+      exit(1);
+    }
+    espacoAlocado = tamanho;
   }
 }
 
@@ -63,16 +79,21 @@ short ListaSequencial<Tipo>::temProximo(int pos) {
 
 template <class Tipo>
 void ListaSequencial<Tipo>::realocar(int tamanhoExtra) {
-  try {
-    Tipo* buffer = new Tipo[tamanho + tamanhoExtra];
-    copy(listaSequencial, listaSequencial + tamanho, buffer);
-    delete[] listaSequencial;
-    listaSequencial = buffer;
-    espacoAlocado += tamanhoExtra;
-  } catch (bad_alloc& erro) {
-    cerr << "Não foi possível alocar " << sizeof(Tipo) * tamanho << " bytes." << endl;
-    exit(1);
-  }
+    if (listaSequencial == NULL) {
+      instanciar(tamanhoExtra);
+    } else {
+      try {
+        Tipo* buffer = new Tipo[tamanho + tamanhoExtra];
+        copy(listaSequencial, listaSequencial + tamanho, buffer);
+        delete[] listaSequencial;
+        listaSequencial = buffer;
+        espacoAlocado += tamanhoExtra;
+      } catch (bad_alloc& erro) {
+        cerr << "Não foi possível alocar " << sizeof(Tipo) * tamanho << " bytes." << endl;
+        exit(1);
+      }
+    }
+    
 }
 
 template class ListaSequencial<Pessoa>;

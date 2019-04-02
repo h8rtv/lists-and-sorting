@@ -1,26 +1,34 @@
 #include "Leitor.h"
 
-Leitor::Leitor(const char* _nomeArquivo):
-  arquivo(_nomeArquivo)
+Leitor::Leitor(const char* _nomeArquivo)
 {
   nroLinhas = 0;
   nomeArquivo = _nomeArquivo;
+  abrir(nomeArquivo);
 }
 
 Leitor::~Leitor() {
-  arquivo.close();
+  arquivo->close();
+  delete arquivo;
 }
 
 void Leitor::reiniciar() {
-  arquivo.clear();
-  arquivo.seekg(0, std::ios::beg);
+  arquivo->clear();
+  arquivo->seekg(0, std::ios::beg);
+}
+
+void Leitor::abrir(const char* _nomeArquivo) {
+  nomeArquivo = _nomeArquivo;
+  delete arquivo;
+  arquivo = new ifstream(nomeArquivo);
+  nroLinhas = 0;
 }
 
 int Leitor::nroLinhasArquivo() {
   if (nroLinhas == 0) {
     string linha;
     int contador = 0;
-    while (getline(arquivo, linha)) {
+    while (getline(*arquivo, linha)) {
       contador++;
     }
     nroLinhas = contador;
@@ -30,13 +38,5 @@ int Leitor::nroLinhasArquivo() {
 }
 
 ifstream& Leitor::getArquivo() {
-  return arquivo;
+  return *arquivo;
 }
-
-
-// void Leitor::ler(cb_leitor) {
-//   string linha;
-//   while (getline(arquivo, linha)) {
-//     cb_leitor(linha);
-//   }
-// }

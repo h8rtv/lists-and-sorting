@@ -13,6 +13,7 @@ class Principal {
     ~Principal();
     void executar();
     void carregarArquivo();
+    void escolherArquivo();
     void listar();
     Pessoa* parserParaPessoa(string linha);
 };

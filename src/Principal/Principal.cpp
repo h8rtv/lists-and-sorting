@@ -1,9 +1,9 @@
 #include <iostream>
-#include "Principal.h"
 #include <stdlib.h>
+#include "Principal.h"
+#include "Arquivos.h"
 
-Principal::Principal():
-  leitor("./arquivocomprimidonomerg/NomeRG10.txt")
+Principal::Principal()
 {
   executar();
 }
@@ -21,23 +21,39 @@ Pessoa* Principal::parserParaPessoa(string linha) {
 
 void Principal::carregarArquivo() {
   string linha;
-  // listaSequencial.instanciar(leitor.nroLinhasArquivo());
+  listaSequencial.realocar(leitor.nroLinhasArquivo());
   while (getline(leitor.getArquivo(), linha)) {
     listaSequencial.adicionar(parserParaPessoa(linha));
   }
 }
 
+void Principal::escolherArquivo() {
+  short opcao;
+  cout << "1 - NomeRG10.txt" << endl;
+  cout << "2 - NomeRG50.txt" << endl;
+  cout << "3 - NomeRG100.txt" << endl;
+  cout << "4 - NomeRG1K.txt" << endl;
+  cout << "5 - NomeRG10K.txt" << endl;
+  cout << "6 - NomeRG1M.txt" << endl;
+  cout << "7 - NomeRG100M.txt" << endl;
+  cin >> opcao;
+  if (opcao < 1 || opcao > 7) {
+    cout << "Opção Inválida." << endl;
+  } else {
+    leitor.abrir(ARQUIVOS[opcao - 1]);
+    carregarArquivo();
+  }
+}
+
 void Principal::listar() {
   int i = 0;
-  Pessoa* pessoa;
+  Pessoa pessoa;
   if (listaSequencial.getTamanho() == 0) {
     cout << "Lista vazia." << endl;
   }
   while (listaSequencial.temProximo(i)) {
-    pessoa = listaSequencial.get(i);
-    if (pessoa != NULL) {
-      cout << i + 1 << ") NOME: " << pessoa->getNome() << ", RG: " << pessoa->getRg() << endl;
-    }
+    pessoa = listaSequencial[i];
+    cout << i + 1 << ") NOME: " << pessoa.getNome() << ", RG: " << pessoa.getRg() << endl;
     i++;
   }
 }
@@ -50,7 +66,7 @@ void Principal::executar() {
     cout << "3 - Sair" << endl;
     cin >> opcao;
     if (opcao == 1) {
-      carregarArquivo();
+      escolherArquivo();
     } else if (opcao == 2) {
       listar();
     } else if (opcao == 3) {

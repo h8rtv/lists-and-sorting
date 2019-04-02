@@ -7,9 +7,10 @@ using namespace std;
 
 class Leitor {
   private:
-    string nomeArquivo;
-    ifstream arquivo;
+    const char* nomeArquivo;
+    ifstream* arquivo;
     int nroLinhas;
+    bool aberto;
 
   public:
     Leitor(const char* _nomeArquivo = "");
@@ -17,5 +18,5 @@ class Leitor {
     ifstream& getArquivo();
     int nroLinhasArquivo();
     void reiniciar();
-    // void ler(cb_leitor);
+    void abrir(const char* _nomeArquivo = "");
 };
