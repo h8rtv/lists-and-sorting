@@ -1,4 +1,4 @@
-#include <string>
+#pragma once
 
 const char* ARQUIVOS[7] = {
   "arquivocomprimidonomerg/NomeRG10.txt",

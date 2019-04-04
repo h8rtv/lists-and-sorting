@@ -1,4 +1,7 @@
 #pragma once
+
+#include <iostream>
+#include <stdlib.h>
 #include "../Pessoa/Pessoa.h"
 #include "../ListaSequencial/ListaSequencial.h"
 #include "../ListaEncadeada/ListaEncadeada.h"

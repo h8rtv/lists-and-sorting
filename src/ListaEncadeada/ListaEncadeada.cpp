@@ -1,6 +1,4 @@
 #include "ListaEncadeada.h"
-#include <stdlib.h>
-#include "../Pessoa/Pessoa.h"
 
 
 template <class Tipo>

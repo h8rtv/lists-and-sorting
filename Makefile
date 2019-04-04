@@ -17,10 +17,14 @@ H_SOURCE = $(wildcard src/*.h) \
 OBJ = $(C_SOURCE:.c=.o)
 
 COMPILER_FLAGS = -c \
+	-std=c++11 \
 	-W \
 	-Wall \
 	-ansi \
-	-pedantic
+	-pedantic \
+	-g \
+	-v
+
 
 COMPILER = g++
 

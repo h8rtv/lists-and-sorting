@@ -1,5 +1,9 @@
 #pragma once
+#include <cstddef>
 #include "Node/Node.h"
+#include "../Pessoa/Pessoa.h"
+
+using namespace std;
 
 template <class Tipo>
 class ListaEncadeada {
