@@ -2,8 +2,7 @@
 
 Leitor::Leitor(const char* _nomeArquivo)
 {
-  nroLinhas = 0;
-  nomeArquivo = _nomeArquivo;
+  arquivo = NULL;
   abrir(nomeArquivo);
 }
 
@@ -18,10 +17,10 @@ void Leitor::reiniciar() {
 }
 
 void Leitor::abrir(const char* _nomeArquivo) {
-  nomeArquivo = _nomeArquivo;
-  delete arquivo;
-  arquivo = new ifstream(nomeArquivo);
   nroLinhas = 0;
+  nomeArquivo = _nomeArquivo;
+  if (arquivo != NULL) delete arquivo;
+  arquivo = new ifstream(nomeArquivo);
 }
 
 int Leitor::nroLinhasArquivo() {

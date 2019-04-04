@@ -19,7 +19,7 @@ Pessoa* Principal::parserParaPessoa(string linha) {
   return new Pessoa(nome, rg);
 }
 
-void Principal::carregarArquivo() {
+void Principal::carregarArquivoSequencial() {
   string linha;
   listaSequencial.realocar(leitor.nroLinhasArquivo());
   while (getline(leitor.getArquivo(), linha)) {
@@ -27,7 +27,14 @@ void Principal::carregarArquivo() {
   }
 }
 
-void Principal::escolherArquivo() {
+void Principal::carregarArquivoEncadeada() {
+  string linha;
+  while (getline(leitor.getArquivo(), linha)) {
+    listaEncadeada.push(parserParaPessoa(linha));
+  }
+}
+
+int Principal::escolherArquivo() {
   short opcao;
   cout << "1 - NomeRG10.txt" << endl;
   cout << "2 - NomeRG50.txt" << endl;
@@ -39,13 +46,12 @@ void Principal::escolherArquivo() {
   cin >> opcao;
   if (opcao < 1 || opcao > 7) {
     cout << "Opção Inválida." << endl;
-  } else {
-    leitor.abrir(ARQUIVOS[opcao - 1]);
-    carregarArquivo();
+    return -1;
   }
+  return opcao - 1;
 }
 
-void Principal::listar() {
+void Principal::listarSequencial() {
   int i = 0;
   Pessoa pessoa;
   if (listaSequencial.getTamanho() == 0) {
@@ -58,18 +64,46 @@ void Principal::listar() {
   }
 }
 
+void Principal::listarEncadeada() {
+  int i = 0;
+  Pessoa pessoa;
+  if (listaEncadeada.getTamanho() == 0) {
+    cout << "Lista vazia." << endl;
+  }
+  while (listaEncadeada.temProximo(i)) {
+    pessoa = listaEncadeada[i];
+    cout << i + 1 << ") NOME: " << pessoa.getNome() << ", RG: " << pessoa.getRg() << endl;
+    i++;
+  }
+}
+
 void Principal::executar() {
-  short opcao = 3;
+  short opcao = 5;
+  int codArquivo = -1;
   do {
-    cout << "1 - Carregar" << endl;
-    cout << "2 - Listar" << endl;
-    cout << "3 - Sair" << endl;
+    cout << "1 - Carregar Sequencial" << endl;
+    cout << "2 - Listar Sequencial" << endl;
+    cout << "3 - Carregar Encadeada" << endl;
+    cout << "4 - Listar Encadeada" << endl;
+    cout << "5 - Sair" << endl;
     cin >> opcao;
     if (opcao == 1) {
-      escolherArquivo();
+      codArquivo = escolherArquivo();
+      if (codArquivo != -1) {
+        leitor.abrir(ARQUIVOS[codArquivo]);
+        carregarArquivoSequencial();
+      }
     } else if (opcao == 2) {
-      listar();
+      listarSequencial();
     } else if (opcao == 3) {
+      codArquivo = escolherArquivo();
+      if (codArquivo != -1) {
+        leitor.abrir(ARQUIVOS[codArquivo]);
+        carregarArquivoEncadeada();
+      }
+    } else if (opcao == 4) {
+      listarEncadeada();
+    } else if (opcao == 5) {
       exit(0);
     } else {
       cout << "Opção Inválida." << endl;

@@ -1,5 +1,8 @@
 #pragma once
 #include <iostream>
+#include <stdlib.h>
+#include "../Pessoa/Pessoa.h"
+
 using namespace std;
 
 template <class Tipo>
@@ -19,5 +22,5 @@ class ListaSequencial {
     Tipo* get(int pos);
     void instanciar(int _tamanho);
     void limparLista();
-    short temProximo(int pos);
+    bool temProximo(int pos);
 };

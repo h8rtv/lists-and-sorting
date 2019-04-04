@@ -1,7 +1,4 @@
 #include "ListaSequencial.h"
-#include <iostream>
-#include <stdlib.h>
-#include "../Pessoa/Pessoa.h"
 
 const int SIZE_ALOCACAO = 100;
 
@@ -73,7 +70,7 @@ void ListaSequencial<Tipo>::instanciar(int tamanho) {
 }
 
 template <class Tipo>
-short ListaSequencial<Tipo>::temProximo(int pos) {
+bool ListaSequencial<Tipo>::temProximo(int pos) {
   return pos >= 0 && pos < tamanho;
 }
 
