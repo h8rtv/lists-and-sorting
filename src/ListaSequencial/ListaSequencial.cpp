@@ -52,7 +52,7 @@ void ListaSequencial<Tipo>::limparLista() {
   delete[] listaSequencial;
   listaSequencial = NULL;
   tamanho = 0;
-  espacoAlocado = 0;   
+  espacoAlocado = 0;
 }
 
 template <class Tipo>
@@ -90,7 +90,6 @@ void ListaSequencial<Tipo>::realocar(int tamanhoExtra) {
         exit(1);
       }
     }
-    
 }
 
 template class ListaSequencial<Pessoa>;
