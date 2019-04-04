@@ -18,18 +18,26 @@ Pessoa* Principal::parserParaPessoa(string linha) {
 }
 
 void Principal::carregarArquivoSequencial() {
+  auto start = chrono::high_resolution_clock::now();
   string linha;
   listaSequencial.realocar(leitor.nroLinhasArquivo());
   while (getline(leitor.getArquivo(), linha)) {
     listaSequencial.adicionar(parserParaPessoa(linha));
   }
+  auto finish = chrono::high_resolution_clock::now();
+  chrono::duration<double> diff = finish - start;
+  cout << "TEMPO: " << diff.count() << endl;
 }
 
 void Principal::carregarArquivoEncadeada() {
+  auto start = chrono::high_resolution_clock::now();
   string linha;
   while (getline(leitor.getArquivo(), linha)) {
     listaEncadeada.push(parserParaPessoa(linha));
   }
+  auto finish = chrono::high_resolution_clock::now();
+  chrono::duration<double> diff = finish - start;
+  cout << "TEMPO: " << diff.count() << endl;
 }
 
 int Principal::escolherArquivo() {
@@ -50,6 +58,7 @@ int Principal::escolherArquivo() {
 }
 
 void Principal::listarSequencial() {
+  auto start = chrono::high_resolution_clock::now();
   int i = 0;
   Pessoa pessoa;
   if (listaSequencial.getTamanho() == 0) {
@@ -60,9 +69,13 @@ void Principal::listarSequencial() {
     cout << i + 1 << ") NOME: " << pessoa.getNome() << ", RG: " << pessoa.getRg() << endl;
     i++;
   }
+  auto finish = chrono::high_resolution_clock::now();
+  chrono::duration<double> diff = finish - start;
+  cout << "TEMPO: " << diff.count() << endl;
 }
 
 void Principal::listarEncadeada() {
+  auto start = chrono::high_resolution_clock::now();
   int i = 0;
   Pessoa pessoa;
   if (listaEncadeada.getTamanho() == 0) {
@@ -73,6 +86,9 @@ void Principal::listarEncadeada() {
     cout << i + 1 << ") NOME: " << pessoa.getNome() << ", RG: " << pessoa.getRg() << endl;
     i++;
   }
+  auto finish = chrono::high_resolution_clock::now();
+  chrono::duration<double> diff = finish - start;
+  cout << "TEMPO: " << diff.count() << endl;
 }
 
 void Principal::executar() {

@@ -2,10 +2,13 @@
 
 #include <iostream>
 #include <stdlib.h>
+#include <chrono>
 #include "../Pessoa/Pessoa.h"
 #include "../ListaSequencial/ListaSequencial.h"
 #include "../ListaEncadeada/ListaEncadeada.h"
 #include "../Leitor/Leitor.h"
+
+using namespace std;
 
 class Principal {
   private:
