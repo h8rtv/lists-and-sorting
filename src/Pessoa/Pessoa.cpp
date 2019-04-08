@@ -1,6 +1,6 @@
 #include "Pessoa.h"
 
-Pessoa::Pessoa(string _nome, string _rg) {
+Pessoa::Pessoa(string _nome, int _rg) {
   setNome(_nome);
   setRg(_rg);
 }
@@ -16,10 +16,10 @@ string Pessoa::getNome() {
   return nome;
 }
 
-void Pessoa::setRg(string _rg) {
-  rg.assign(_rg);
+void Pessoa::setRg(int _rg) {
+  rg = _rg;
 }
 
-string Pessoa::getRg() {
+int Pessoa::getRg() {
   return rg;
 }

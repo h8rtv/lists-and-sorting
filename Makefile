@@ -1,43 +1,20 @@
 NAME=lista-de-clientes
 
 C_SOURCE = $(wildcard src/*.cpp) \
-	$(wildcard src/Pessoa/*.cpp) \
-	$(wildcard src/ListaSequencial/*.cpp) \
-	$(wildcard src/ListaEncadeada/*.cpp) \
-	$(wildcard src/Leitor/*.cpp) \
-	$(wildcard src/Principal/*.cpp)
-
-H_SOURCE = $(wildcard src/*.h) \
-	$(wildcard src/Pessoa/*.h) \
-	$(wildcard src/ListaSequencial/*.h) \
-	$(wildcard src/ListaEncadeada/*.h) \
-	$(wildcard src/Leitor/*.h) \
-	$(wildcard src/Principal/*.h)
+  $(wildcard src/Pessoa/*.cpp) \
+  $(wildcard src/ListaSequencial/*.cpp) \
+  $(wildcard src/ListaEncadeada/*.cpp) \
+  $(wildcard src/Leitor/*.cpp) \
+  $(wildcard src/Principal/*.cpp)
  
-OBJ = $(C_SOURCE:.c=.o)
-
-COMPILER_FLAGS = -c \
-	-std=c++11 \
-	-W \
-	-Wall \
-	-ansi \
-	-pedantic \
-	-g \
-	-v
-
+COMPILER_FLAGS = -std=c++11
 
 COMPILER = g++
 
-all: $(NAME)
+all: compile
 
-$(NAME): $(OBJ)
-	$(COMPILER) -o $@ $^
-
-%.o: %.c %.h
-	$(COMPILER) -o $@ $< $(COMPILER_FLAGS)
-
-main.o: src/main.cpp $(H_SOURCE)
-	$(COMPILER) -o $@ $< $(COMPILER_FLAGS)
+compile:
+	$(COMPILER) $(COMPILER_FLAGS) -o $(NAME) $(C_SOURCE)
 
 clean:
 	rm -rf *.o $(NAME) *~

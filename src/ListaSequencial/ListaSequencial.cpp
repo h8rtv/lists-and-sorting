@@ -7,7 +7,7 @@ using namespace std;
 
 template <class Tipo>
 Tipo& ListaSequencial<Tipo>::operator[] (int pos) {
-  return listaSequencial[pos];
+  return *listaSequencial[pos];
 }
 
 template <class Tipo>
@@ -32,7 +32,7 @@ void ListaSequencial<Tipo>::adicionar(Tipo* valor) {
     instanciar(SIZE_ALOCACAO);
   }
   if (tamanho >= espacoAlocado) realocar(SIZE_ALOCACAO);
-  listaSequencial[tamanho] = *valor;
+  listaSequencial[tamanho] = valor;
   tamanho++;
 }
 
@@ -44,11 +44,14 @@ int ListaSequencial<Tipo>::getTamanho() {
 template <class Tipo>
 Tipo* ListaSequencial<Tipo>::get(int pos) {
   if (pos < 0 || pos > tamanho) return NULL;
-  return &listaSequencial[pos];
+  return listaSequencial[pos];
 }
 
 template <class Tipo>
 void ListaSequencial<Tipo>::limparLista() {
+  for (int i = 0; i < tamanho; i++) {
+    delete listaSequencial[i];
+  }
   delete[] listaSequencial;
   listaSequencial = NULL;
   tamanho = 0;
@@ -60,7 +63,7 @@ void ListaSequencial<Tipo>::instanciar(int tamanho) {
   if (listaSequencial != NULL) {
     limparLista();
   } else {
-    listaSequencial = new (nothrow) Tipo[tamanho];
+    listaSequencial = new (nothrow) Tipo*[tamanho];
     if (listaSequencial == NULL) {
       cout << "Não foi possível alocar " << sizeof(Tipo) * tamanho << " bytes." << endl;
       exit(1);
@@ -80,7 +83,7 @@ void ListaSequencial<Tipo>::realocar(int tamanhoExtra) {
       instanciar(tamanhoExtra);
     } else {
       try {
-        Tipo* buffer = new Tipo[tamanho + tamanhoExtra];
+        Tipo** buffer = new Tipo*[tamanho + tamanhoExtra];
         copy(listaSequencial, listaSequencial + tamanho, buffer);
         delete[] listaSequencial;
         listaSequencial = buffer;

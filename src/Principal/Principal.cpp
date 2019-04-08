@@ -14,7 +14,14 @@ Pessoa* Principal::parserParaPessoa(string linha) {
   int pos = linha.find(',');
   string nome = linha.substr(0, pos);
   string rg = linha.substr(pos + 1, linha.size());
-  return new Pessoa(nome, rg);
+  int rgint;
+  try {
+    rgint = stoi(rg);
+  }
+  catch(std::invalid_argument& e){
+    rgint = -1;
+  }
+  return new Pessoa(nome, rgint);
 }
 
 void Principal::carregarArquivoSequencial() {

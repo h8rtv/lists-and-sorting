@@ -10,7 +10,7 @@ class ListaSequencial {
   private:
     int espacoAlocado;
     int tamanho;
-    Tipo* listaSequencial;
+    Tipo** listaSequencial;
 
   public:
     Tipo& operator[] (int pos);

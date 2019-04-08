@@ -5,13 +5,13 @@ using namespace std;
 class Pessoa {
   private:
     string nome;
-    string rg;
+    int rg;
 
   public:
-    Pessoa(string _nome = "", string _rg = "");
+    Pessoa(string _nome = "", int _rg = -1);
     ~Pessoa();
     void setNome(string _nome);
     string getNome();
-    void setRg(string _rg);
-    string getRg();
+    void setRg(int _rg);
+    int getRg();
 };
