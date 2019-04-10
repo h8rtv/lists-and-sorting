@@ -68,6 +68,34 @@ void ListaEncadeada<Tipo>::shift() {
 }
 
 template <class Tipo>
+void ListaEncadeada<Tipo>::add(Tipo* valor, int index) {
+  if (index >= 0 && index < tamanho) {
+    if (tamanho == 0) {
+      start->setvalue(valor);
+    } else {
+      Node<Tipo>* nodePosterior = getNode(index);
+      Node<Tipo>* node = new Node<Tipo>(valor, nodePosterior->getprev(), nodePosterior);
+      nodePosterior->setprev(node);
+      nodePosterior->getprev()->setnext(node);
+    }
+    tamanho++;
+  }
+}
+
+template <class Tipo>
+void ListaEncadeada<Tipo>::remove(int index) {
+  if (index >= 0 && index < tamanho) {
+    Node<Tipo>* nodeARemover = getNode(index);
+    Node<Tipo>* ant = nodeARemover->getprev();
+    Node<Tipo>* pos = nodeARemover->getnext();
+    pos->setprev(ant);
+    ant->setnext(pos);
+    delete nodeARemover;
+    tamanho--;
+  }
+}
+
+template <class Tipo>
 int ListaEncadeada<Tipo>::getTamanho() {
   return tamanho;
 }
@@ -78,14 +106,21 @@ bool ListaEncadeada<Tipo>::temProximo(int pos) {
 }
 
 template <class Tipo>
-Tipo* ListaEncadeada<Tipo>::get(int pos) {
+Node<Tipo>* ListaEncadeada<Tipo>::getNode(int pos) {
   if (pos >= tamanho || pos < 0) return NULL;
   Node<Tipo>* ptr = start;
   while (pos) {
     ptr = ptr->getnext();
     pos--;
   }
-  return ptr->getvalue();
+  return ptr;
+}
+
+template <class Tipo>
+Tipo* ListaEncadeada<Tipo>::get(int pos) {
+  Node<Tipo>* node = getNode(pos);
+  if (node == NULL) return NULL;
+  return node->getvalue();
 }
 
 template <class Tipo>

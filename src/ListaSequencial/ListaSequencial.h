@@ -17,7 +17,12 @@ class ListaSequencial {
     ListaSequencial(int _tamanho = 0);
     ~ListaSequencial();
     int getTamanho();
-    void adicionar(Tipo* valor);
+    void push(Tipo* valor);
+    void pop();
+    void unshift(Tipo* valor);
+    void shift();
+    void add(Tipo* valor, int index);
+    void remove(int index);
     void realocar(int tamanhoExtra);
     Tipo* get(int pos);
     void instanciar(int _tamanho);

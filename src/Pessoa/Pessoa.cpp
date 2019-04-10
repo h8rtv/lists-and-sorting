@@ -23,3 +23,7 @@ void Pessoa::setRg(int _rg) {
 int Pessoa::getRg() {
   return rg;
 }
+
+string Pessoa::toString() {
+  return nome + "," + to_string(rg);
+}

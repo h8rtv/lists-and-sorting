@@ -22,6 +22,9 @@ class ListaEncadeada {
     void pop();
     void unshift(Tipo* valor);
     void shift();
+    void add(Tipo* valor, int index);
+    void remove(int index);
     Tipo* get(int pos);
+    Node<Tipo>* getNode(int pos);
     void limparLista();
 };

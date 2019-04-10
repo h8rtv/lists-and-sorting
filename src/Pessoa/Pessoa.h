@@ -14,4 +14,5 @@ class Pessoa {
     string getNome();
     void setRg(int _rg);
     int getRg();
+    string toString();
 };

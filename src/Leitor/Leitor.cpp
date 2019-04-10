@@ -19,7 +19,10 @@ void Leitor::reiniciar() {
 void Leitor::abrir(const char* _nomeArquivo) {
   nroLinhas = 0;
   nomeArquivo = _nomeArquivo;
-  if (arquivo != NULL) delete arquivo;
+  if (arquivo != NULL) {
+    arquivo->close();
+    delete arquivo;
+  }
   arquivo = new ifstream(nomeArquivo);
 }
 

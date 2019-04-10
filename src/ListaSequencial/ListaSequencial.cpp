@@ -27,7 +27,7 @@ ListaSequencial<Tipo>::~ListaSequencial() {
 }
 
 template <class Tipo>
-void ListaSequencial<Tipo>::adicionar(Tipo* valor) {
+void ListaSequencial<Tipo>::push(Tipo* valor) {
   if (espacoAlocado == 0) {
     instanciar(SIZE_ALOCACAO);
   }
@@ -37,13 +37,79 @@ void ListaSequencial<Tipo>::adicionar(Tipo* valor) {
 }
 
 template <class Tipo>
+void ListaSequencial<Tipo>::pop() {
+  if (tamanho != 0) {
+    delete listaSequencial[tamanho - 1];
+    tamanho--;
+  }
+}
+
+template <class Tipo>
+void ListaSequencial<Tipo>::unshift(Tipo* valor) {
+  if (espacoAlocado == 0) {
+    instanciar(SIZE_ALOCACAO);
+  }
+  if (tamanho >= espacoAlocado) realocar(SIZE_ALOCACAO);
+  int i = tamanho;
+  while (i) {
+    listaSequencial[i] = listaSequencial[i - 1];
+    i--;
+  }
+  listaSequencial[0] = valor;
+  tamanho++;
+}
+
+template <class Tipo>
+void ListaSequencial<Tipo>::shift() {
+  if (tamanho != 0) {
+    delete listaSequencial[0];
+    int i = 1;
+    while (temProximo(i)) {
+      listaSequencial[i - 1] = listaSequencial[i];
+      i++;
+    }
+    tamanho--;
+  }
+}
+
+template <class Tipo>
+void ListaSequencial<Tipo>::add(Tipo* valor, int index) {
+  if (index >= 0 && index < tamanho) {
+    if (espacoAlocado == 0) {
+      instanciar(SIZE_ALOCACAO);
+    }
+    if (tamanho >= espacoAlocado) realocar(SIZE_ALOCACAO);
+    int i = tamanho;
+    while (i >= index) {
+      listaSequencial[i] = listaSequencial[i - 1];
+      i++;
+    }
+    listaSequencial[index] = valor;
+    tamanho++;
+  }
+}
+
+template <class Tipo>
+void ListaSequencial<Tipo>::remove(int index) {
+  if (index >= 0 && index < tamanho) {
+    delete listaSequencial[index];
+    int i = index + 1;
+    while (temProximo(i)) {
+      listaSequencial[i - 1] = listaSequencial[i];
+      i++;
+    }
+    tamanho--;
+  }
+}
+
+template <class Tipo>
 int ListaSequencial<Tipo>::getTamanho() {
   return tamanho;
 }
 
 template <class Tipo>
 Tipo* ListaSequencial<Tipo>::get(int pos) {
-  if (pos < 0 || pos > tamanho) return NULL;
+  if (pos < 0 || pos >= tamanho) return NULL;
   return listaSequencial[pos];
 }
 
