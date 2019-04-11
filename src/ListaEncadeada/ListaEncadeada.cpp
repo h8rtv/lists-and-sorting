@@ -53,6 +53,7 @@ template <class Tipo>
 void ListaEncadeada<Tipo>::pop() {
   if (Util::getInstance().addC(), tamanho != 0) {
     Node<Tipo>* newend = end->getprev();
+    Util::getInstance().addM(), newend->setnext(NULL);
     delete end;
     Util::getInstance().addM(), end = newend;
     tamanho--;
@@ -63,6 +64,7 @@ template <class Tipo>
 void ListaEncadeada<Tipo>::shift() {
   if (Util::getInstance().addC(), tamanho != 0) {
     Node<Tipo>* newstart = start->getnext();
+    Util::getInstance().addM(), newstart->setprev(NULL);
     delete start;
     Util::getInstance().addM(), start = newstart;
     tamanho--;

@@ -45,7 +45,6 @@ void Gravador::salvarListaEncadeada(ListaEncadeada<Tipo>& lista) {
   if (!arquivo->is_open()) arquivo->open(nomeArquivo);
   ofstream& arquivoR = getArquivo();
   Node<Tipo>* node = lista.getbegin();
-  Tipo* value = NULL;
   string buffer = "";
   while (node != NULL) {
     buffer += node->getvalue()->toString() + "\n";

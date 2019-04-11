@@ -83,7 +83,6 @@ void ListaSequencial<Tipo>::add(Tipo* valor, int index) {
     if (Util::getInstance().addC(), tamanho >= espacoAlocado) realocar(SIZE_ALOCACAO);
     int i = tamanho;
     while (Util::getInstance().addC(), i >= index) {
-      cout << i << index << endl;
       Util::getInstance().addM(), listaSequencial[i + 1] = listaSequencial[i];
       i--;
     }
