@@ -25,19 +25,20 @@ Pessoa* Principal::parserParaPessoa(string linha) {
 }
 
 Pessoa* Principal::lerPessoa() {
-  string nome, rg;
+  string nome;
+  int rg;
   cout << "Digite o nome da Pessoa: ";
   cin >> nome;
+  rg = lerRg();
+
+  return new Pessoa(nome, rg);
+}
+
+int Principal::lerRg() {
+  int rg;
   cout << "Digite o RG da Pessoa: ";
   cin >> rg;
-  int rgint;
-  try {
-    rgint = stoi(rg);
-  }
-  catch(std::invalid_argument& e){
-    rgint = -1;
-  }
-  return new Pessoa(nome, rgint);
+  return rg;
 }
 
 int Principal::escolherArquivo() {
@@ -128,6 +129,8 @@ void Principal::adicionarFimSequencial() {
   Pessoa* pessoa = lerPessoa();
   Util::getInstance().start();
   listaSequencial.push(pessoa);
+  int i = listaSequencial.getTamanho() - 1;
+  cout << "[" << i << "] NOME: " << pessoa->getNome() << ", RG: " << pessoa->getRg() << endl;
   Util::getInstance().stopAndPrint();
 }
 
@@ -135,6 +138,8 @@ void Principal::adicionarFimEncadeada() {
   Pessoa* pessoa = lerPessoa();
   Util::getInstance().start();
   listaEncadeada.push(pessoa);
+  int i = listaEncadeada.getTamanho() - 1;
+  cout << "[" << i << "] NOME: " << pessoa->getNome() << ", RG: " << pessoa->getRg() << endl;
   Util::getInstance().stopAndPrint();
 }
 
@@ -142,6 +147,8 @@ void Principal::adicionarInicioSequencial() {
   Pessoa* pessoa = lerPessoa();
   Util::getInstance().start();
   listaSequencial.unshift(pessoa);
+  int i = 0;
+  cout << "[" << i << "] NOME: " << pessoa->getNome() << ", RG: " << pessoa->getRg() << endl;
   Util::getInstance().stopAndPrint();
 }
 
@@ -149,6 +156,8 @@ void Principal::adicionarInicioEncadeada() {
   Pessoa* pessoa = lerPessoa();
   Util::getInstance().start();
   listaEncadeada.unshift(pessoa);
+  int i = 0;
+  cout << "[" << i << "] NOME: " << pessoa->getNome() << ", RG: " << pessoa->getRg() << endl;
   Util::getInstance().stopAndPrint();
 }
 
@@ -159,6 +168,7 @@ void Principal::adicionarMeioSequencial() {
   Pessoa* pessoa = lerPessoa();
   Util::getInstance().start();
   listaSequencial.add(pessoa, i);
+  cout << "[" << i << "] NOME: " << pessoa->getNome() << ", RG: " << pessoa->getRg() << endl;
   Util::getInstance().stopAndPrint();
 }
 
@@ -169,30 +179,44 @@ void Principal::adicionarMeioEncadeada() {
   Pessoa* pessoa = lerPessoa();
   Util::getInstance().start();
   listaEncadeada.add(pessoa, i);
+  cout << "[" << i << "] NOME: " << pessoa->getNome() << ", RG: " << pessoa->getRg() << endl;
   Util::getInstance().stopAndPrint();
 }
 
 void Principal::removerFimSequencial() {
+  int i = listaSequencial.getTamanho() - 1;
+  Pessoa pessoa = listaSequencial[i];
   Util::getInstance().start();
   listaSequencial.pop();
+  cout << "[" << i << "] NOME: " << pessoa.getNome() << ", RG: " << pessoa.getRg() << endl;
+  cout << "Posição: " << listaSequencial.getTamanho() << endl;
   Util::getInstance().stopAndPrint();
 }
 
 void Principal::removerFimEncadeada() {
+  int i = listaEncadeada.getTamanho() - 1;
+  Pessoa pessoa = listaEncadeada[i];
   Util::getInstance().start();
   listaEncadeada.pop();
+  cout << "[" << i << "] NOME: " << pessoa.getNome() << ", RG: " << pessoa.getRg() << endl;
   Util::getInstance().stopAndPrint();
 }
 
 void Principal::removerInicioSequencial() {
+  int i = 0;
+  Pessoa pessoa = listaSequencial[i];
   Util::getInstance().start();
   listaSequencial.shift();
+  cout << "[" << i << "] NOME: " << pessoa.getNome() << ", RG: " << pessoa.getRg() << endl;
   Util::getInstance().stopAndPrint();
 }
 
 void Principal::removerInicioEncadeada() {
+  int i = 0;
+  Pessoa pessoa = listaEncadeada[i];
   Util::getInstance().start();
   listaEncadeada.shift();
+  cout << "[" << i << "] NOME: " << pessoa.getNome() << ", RG: " << pessoa.getRg() << endl;
   Util::getInstance().stopAndPrint();
 }
 
@@ -200,8 +224,10 @@ void Principal::removerMeioSequencial() {
   int i;
   cout << "Digite o índice da busca (0 - " << listaSequencial.getTamanho() - 1 << ")" << endl;
   cin >> i;
+  Pessoa pessoa = listaSequencial[i];
   Util::getInstance().start();
   listaSequencial.remove(i);
+  cout << "[" << i << "] NOME: " << pessoa.getNome() << ", RG: " << pessoa.getRg() << endl;
   Util::getInstance().stopAndPrint();
 }
 
@@ -209,8 +235,10 @@ void Principal::removerMeioEncadeada() {
   int i;
   cout << "Digite o índice da busca (0 - " << listaEncadeada.getTamanho() - 1 << ")" << endl;
   cin >> i;
+  Pessoa pessoa = listaEncadeada[i];
   Util::getInstance().start();
   listaEncadeada.remove(i);
+  cout << "[" << i << "] NOME: " << pessoa.getNome() << ", RG: " << pessoa.getRg() << endl;
   Util::getInstance().stopAndPrint();
 }
 
@@ -228,20 +256,62 @@ void Principal::salvarListaSequencial() {
   Util::getInstance().stopAndPrint();
 }
 
+void Principal::buscaEncadeada() {
+  int rg = lerRg();
+  int i = 0;
+  bool found = false;
+  Pessoa* pessoa = NULL;
+  Util::getInstance().start();
+  Node<Pessoa>* node = listaEncadeada.getbegin();
+  while (Util::getInstance().addC(), listaEncadeada.temProximo(i) && node != NULL) {
+    pessoa = node->getvalue();
+    if (Util::getInstance().addC(), rg == pessoa->getRg()) {
+      cout << "[" << i << "] NOME: " << pessoa->getNome() << ", RG: " << pessoa->getRg() << endl;
+      found = true;
+      break;
+    }
+    i++;
+    Util::getInstance().addM(), node = node->getnext();
+  }
+  if (!found) cout << "RG não encontrado." << endl;
+  Util::getInstance().stopAndPrint();
+}
+
+void Principal::buscaSequencial() {
+  int rg = lerRg();
+  Pessoa pessoa;
+  int i = 0;
+  bool found = false;
+  Util::getInstance().start();
+  while (Util::getInstance().addC(), listaSequencial.temProximo(i)) {
+    pessoa = listaSequencial[i];
+    if (rg == pessoa.getRg()) {
+      cout << "[" << i << "] NOME: " << pessoa.getNome() << ", RG: " << pessoa.getRg() << endl;
+      found = true;
+      break;
+    }
+    i++;
+  }
+  if (!found) cout << "RG não encontrado." << endl;
+  Util::getInstance().stopAndPrint();
+}
+
+
 void Principal::menuSequencial() {
   short opcao = 10;
   int codArquivo = -1;
   do {
     cout << "1 - Carregar Sequencial" << endl;
-    cout << "2 - Listar Sequencial" << endl;
-    cout << "3 - Adicionar Fim Sequencial" << endl;
-    cout << "4 - Remover Fim Sequencial" << endl;
-    cout << "5 - Adicionar Início Sequencial" << endl;
-    cout << "6 - Remover Início Sequencial" << endl;
-    cout << "7 - Adicionar Meio Sequencial" << endl;
-    cout << "8 - Remover Meio Sequencial" << endl;
-    cout << "9 - Salvar Sequencial" << endl;
-    cout << "10 - Voltar" << endl;
+    cout << "2 - Busca RG Sequencial" << endl;
+    cout << "3 - Listar Sequencial" << endl;
+    cout << "4 - Adicionar Fim Sequencial" << endl;
+    cout << "5 - Remover Fim Sequencial" << endl;
+    cout << "6 - Adicionar Início Sequencial" << endl;
+    cout << "7 - Remover Início Sequencial" << endl;
+    cout << "8 - Adicionar Meio Sequencial" << endl;
+    cout << "9 - Remover Meio Sequencial" << endl;
+    cout << "10 - Salvar Sequencial" << endl;
+    cout << "11 - Voltar" << endl;
     cin >> opcao;
     if (opcao == 1) {
       codArquivo = escolherArquivo();
@@ -250,25 +320,27 @@ void Principal::menuSequencial() {
         carregarArquivoSequencial();
       }
     } else if (opcao == 2) {
-      listarSequencial();
+      buscaSequencial();
     } else if (opcao == 3) {
-      adicionarFimSequencial();
+      listarSequencial();
     } else if (opcao == 4) {
-      removerFimSequencial();
+      adicionarFimSequencial();
     } else if (opcao == 5) {
-      adicionarInicioSequencial();
+      removerFimSequencial();
     } else if (opcao == 6) {
-      removerInicioSequencial();
+      adicionarInicioSequencial();
     } else if (opcao == 7) {
-      adicionarMeioSequencial();
+      removerInicioSequencial();
     } else if (opcao == 8) {
-      removerMeioSequencial();
+      adicionarMeioSequencial();
     } else if (opcao == 9) {
+      removerMeioSequencial();
+    } else if (opcao == 10) {
       salvarListaSequencial();
-    } else if (opcao != 10) {
+    } else if (opcao != 11) {
       cout << "Opção Inválida." << endl;
     }
-  } while (opcao != 10);
+  } while (opcao != 11);
 }
 
 void Principal::menuEncadeada() {
@@ -276,15 +348,16 @@ void Principal::menuEncadeada() {
   int codArquivo = -1;
   do {
     cout << "1 - Carregar Encadeada" << endl;
-    cout << "2 - Listar Encadeada" << endl;
-    cout << "3 - Adicionar Fim Encadeada" << endl;
-    cout << "4 - Remover Fim Encadeada" << endl;
-    cout << "5 - Adicionar Início Encadeada" << endl;
-    cout << "6 - Remover Início Encadeada" << endl;
-    cout << "7 - Adicionar Meio Encadeada" << endl;
-    cout << "8 - Remover Meio Encadeada" << endl;
-    cout << "9 - Salvar Encadeada" << endl;
-    cout << "10 - Voltar" << endl;
+    cout << "2 - Busca RG Encadeada" << endl;
+    cout << "3 - Listar Encadeada" << endl;
+    cout << "4 - Adicionar Fim Encadeada" << endl;
+    cout << "5 - Remover Fim Encadeada" << endl;
+    cout << "6 - Adicionar Início Encadeada" << endl;
+    cout << "7 - Remover Início Encadeada" << endl;
+    cout << "8 - Adicionar Meio Encadeada" << endl;
+    cout << "9 - Remover Meio Encadeada" << endl;
+    cout << "10 - Salvar Encadeada" << endl;
+    cout << "11 - Voltar" << endl;
     cin >> opcao;
 
     if (opcao == 1) {
@@ -294,25 +367,27 @@ void Principal::menuEncadeada() {
         carregarArquivoEncadeada();
       }
     } else if (opcao == 2) {
+      buscaEncadeada();
+    } else if (opcao == 3) {
       listarEncadeada();
-    }else if (opcao == 3) {
-      adicionarFimEncadeada();
     } else if (opcao == 4) {
-      removerFimEncadeada();
+      adicionarFimEncadeada();
     } else if (opcao == 5) {
-      adicionarInicioEncadeada();
+      removerFimEncadeada();
     } else if (opcao == 6) {
-      removerInicioEncadeada();
+      adicionarInicioEncadeada();
     } else if (opcao == 7) {
-      adicionarMeioEncadeada();
+      removerInicioEncadeada();
     } else if (opcao == 8) {
-      removerMeioEncadeada();
+      adicionarMeioEncadeada();
     } else if (opcao == 9) {
+      removerMeioEncadeada();
+    } else if (opcao == 10) {
       salvarListaEncadeada();
-    } else if (opcao != 10) {
+    } else if (opcao != 11) {
       cout << "Opção Inválida." << endl;
     }
-  } while (opcao != 10);
+  } while (opcao != 11);
 }
 
 

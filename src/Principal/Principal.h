@@ -33,6 +33,7 @@ class Principal {
     void listarEncadeada();
     Pessoa* parserParaPessoa(string linha);
     Pessoa* lerPessoa();
+    int lerRg();
     void adicionarFimSequencial();
     void removerFimSequencial();
     void adicionarInicioSequencial();
@@ -47,4 +48,6 @@ class Principal {
     void removerMeioEncadeada();
     void menuEncadeada();
     void menuSequencial();
+    void buscaSequencial();
+    void buscaEncadeada();
 };
