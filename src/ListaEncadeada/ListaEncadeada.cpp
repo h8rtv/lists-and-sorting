@@ -26,10 +26,11 @@ ListaEncadeada<Tipo>::~ListaEncadeada() {
 template <class Tipo>
 void ListaEncadeada<Tipo>::push(Tipo* valor) {
   if (Util::getInstance().addC(), tamanho == 0) {
-    start->setvalue(valor);
+    Util::getInstance().addM(), start->setvalue(valor);
   } else {
+    Util::getInstance().addM();
     Node<Tipo>* node = new Node<Tipo>(valor, end);
-    end->setnext(node);
+    Util::getInstance().addM(), end->setnext(node);
     Util::getInstance().addM(), end = node;
   }
   tamanho++;
@@ -38,10 +39,11 @@ void ListaEncadeada<Tipo>::push(Tipo* valor) {
 template <class Tipo>
 void ListaEncadeada<Tipo>::unshift(Tipo* valor) {
   if (Util::getInstance().addC(), tamanho == 0) {
-    start->setvalue(valor);
+    Util::getInstance().addM(), start->setvalue(valor);
   } else {
+    Util::getInstance().addM();
     Node<Tipo>* node = new Node<Tipo>(valor, NULL, start);
-    start->setprev(node);
+    Util::getInstance().addM(), start->setprev(node);
     Util::getInstance().addM(), start = node;
   }
   tamanho++;
@@ -74,9 +76,10 @@ void ListaEncadeada<Tipo>::add(Tipo* valor, int index) {
       start->setvalue(valor);
     } else {
       Node<Tipo>* nodePosterior = getNode(index);
+      Util::getInstance().addM(2);
       Node<Tipo>* node = new Node<Tipo>(valor, nodePosterior->getprev(), nodePosterior);
-      nodePosterior->getprev()->setnext(node);
-      nodePosterior->setprev(node);
+      Util::getInstance().addM(), nodePosterior->getprev()->setnext(node);
+      Util::getInstance().addM(), nodePosterior->setprev(node);
     }
     tamanho++;
   }
@@ -88,8 +91,8 @@ void ListaEncadeada<Tipo>::remove(int index) {
     Node<Tipo>* nodeARemover = getNode(index);
     Node<Tipo>* ant = nodeARemover->getprev();
     Node<Tipo>* pos = nodeARemover->getnext();
-    pos->setprev(ant);
-    ant->setnext(pos);
+    Util::getInstance().addM(), pos->setprev(ant);
+    Util::getInstance().addM(), ant->setnext(pos);
     delete nodeARemover;
     tamanho--;
   }

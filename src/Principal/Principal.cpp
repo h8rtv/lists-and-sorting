@@ -113,7 +113,7 @@ void Principal::listarEncadeada() {
   if (listaEncadeada.getTamanho() == 0) {
     cout << "Lista vazia." << endl;
   }
-  Pessoa* pessoa;
+  Pessoa* pessoa = NULL;
   Node<Pessoa>* node = listaEncadeada.getbegin();
   while (Util::getInstance().addC(), listaEncadeada.temProximo(i) && node != NULL) {
     pessoa = node->getvalue();
@@ -217,14 +217,14 @@ void Principal::removerMeioEncadeada() {
 void Principal::salvarListaEncadeada() {
   Util::getInstance().start();
   gravador.abrir(ARQUIVO_SAIDA_ENCADEADA);
-  gravador.salvarLista(listaEncadeada);
+  gravador.salvarListaEncadeada(listaEncadeada);
   Util::getInstance().stopAndPrint();
 }
 
 void Principal::salvarListaSequencial() {
   Util::getInstance().start();
   gravador.abrir(ARQUIVO_SAIDA_SEQUENCIAL);
-  gravador.salvarLista(listaSequencial);
+  gravador.salvarListaSequencial(listaSequencial);
   Util::getInstance().stopAndPrint();
 }
 

@@ -25,5 +25,5 @@ int Pessoa::getRg() {
 }
 
 string Pessoa::toString() {
-  return nome + "," + to_string(rg);
+  return nome + (rg != -1 ? "," + to_string(rg) : "");
 }

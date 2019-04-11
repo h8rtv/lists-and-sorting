@@ -1,5 +1,4 @@
 #pragma once
-#include "../../Util/Util.h"
 
 template <class Tipo>
 class Node {
@@ -27,12 +26,12 @@ class Node {
       return value;
     }
     void setnext(Node<Tipo>* _next) {
-      Util::getInstance().addM(), next = _next;
+      next = _next;
     };
     void setprev(Node<Tipo>* _prev) {
-      Util::getInstance().addM(), prev = _prev;
+      prev = _prev;
     };
     void setvalue(Tipo* _value) {
-      Util::getInstance().addM(), value = _value;
+      value = _value;
     }
 };
