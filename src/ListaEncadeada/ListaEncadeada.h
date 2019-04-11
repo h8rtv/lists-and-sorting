@@ -2,6 +2,7 @@
 #include <cstddef>
 #include "Node/Node.h"
 #include "../Pessoa/Pessoa.h"
+#include "../Util/Util.h"
 
 using namespace std;
 
@@ -27,4 +28,6 @@ class ListaEncadeada {
     Tipo* get(int pos);
     Node<Tipo>* getNode(int pos);
     void limparLista();
+    Node<Tipo>* getbegin();
+    Node<Tipo>* getend();
 };

@@ -11,4 +11,4 @@ const char* ARQUIVOS[7] = {
 };
 
 const char ARQUIVO_SAIDA_SEQUENCIAL[] = "output_file_sequencial.txt";
-const char ARQUIVO_SAIDA_ENCADEADA[] = "output_file_sequencial.txt";
+const char ARQUIVO_SAIDA_ENCADEADA[] = "output_file_encadeada.txt";

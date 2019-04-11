@@ -1,4 +1,5 @@
 .vscode/
 arquivocomprimidonomerg/
-outputfile.txt
+output_file_sequencial.txt
+output_file_encadeada.txt
 lista-de-clientes

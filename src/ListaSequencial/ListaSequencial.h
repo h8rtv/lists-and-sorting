@@ -2,6 +2,7 @@
 #include <iostream>
 #include <stdlib.h>
 #include "../Pessoa/Pessoa.h"
+#include "../Util/Util.h"
 
 using namespace std;
 

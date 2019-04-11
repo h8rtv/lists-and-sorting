@@ -1,11 +1,11 @@
 #include "ListaEncadeada.h"
-
+#include <stdexcept>
 
 template <class Tipo>
 Tipo& ListaEncadeada<Tipo>::operator[] (int pos) {
   Tipo* value = get(pos);
-  if (value == NULL) {
-    throw "Não foi possível acessar a esta posição";
+  if (Util::getInstance().addC(), value == NULL) {
+    throw std::out_of_range("Índice for do alcance.");
   }
   return *value;
 }
@@ -25,58 +25,58 @@ ListaEncadeada<Tipo>::~ListaEncadeada() {
 
 template <class Tipo>
 void ListaEncadeada<Tipo>::push(Tipo* valor) {
-  if (tamanho == 0) {
+  if (Util::getInstance().addC(), tamanho == 0) {
     start->setvalue(valor);
   } else {
     Node<Tipo>* node = new Node<Tipo>(valor, end);
     end->setnext(node);
-    end = node;
+    Util::getInstance().addM(), end = node;
   }
   tamanho++;
 }
 
 template <class Tipo>
 void ListaEncadeada<Tipo>::unshift(Tipo* valor) {
-  if (tamanho == 0) {
+  if (Util::getInstance().addC(), tamanho == 0) {
     start->setvalue(valor);
   } else {
     Node<Tipo>* node = new Node<Tipo>(valor, NULL, start);
     start->setprev(node);
-    start = node;
+    Util::getInstance().addM(), start = node;
   }
   tamanho++;
 }
 
 template <class Tipo>
 void ListaEncadeada<Tipo>::pop() {
-  if (tamanho != 0) {
+  if (Util::getInstance().addC(), tamanho != 0) {
     Node<Tipo>* newend = end->getprev();
     delete end;
-    end = newend;
+    Util::getInstance().addM(), end = newend;
     tamanho--;
   }
 }
 
 template <class Tipo>
 void ListaEncadeada<Tipo>::shift() {
-  if (tamanho != 0) {
+  if (Util::getInstance().addC(), tamanho != 0) {
     Node<Tipo>* newstart = start->getnext();
     delete start;
-    start = newstart;
+    Util::getInstance().addM(), start = newstart;
     tamanho--;
   }
 }
 
 template <class Tipo>
 void ListaEncadeada<Tipo>::add(Tipo* valor, int index) {
-  if (index >= 0 && index < tamanho) {
-    if (tamanho == 0) {
+  if (Util::getInstance().addC(), index >= 0 && index < tamanho) {
+    if (Util::getInstance().addC(), tamanho == 0) {
       start->setvalue(valor);
     } else {
       Node<Tipo>* nodePosterior = getNode(index);
       Node<Tipo>* node = new Node<Tipo>(valor, nodePosterior->getprev(), nodePosterior);
-      nodePosterior->setprev(node);
       nodePosterior->getprev()->setnext(node);
+      nodePosterior->setprev(node);
     }
     tamanho++;
   }
@@ -84,7 +84,7 @@ void ListaEncadeada<Tipo>::add(Tipo* valor, int index) {
 
 template <class Tipo>
 void ListaEncadeada<Tipo>::remove(int index) {
-  if (index >= 0 && index < tamanho) {
+  if (Util::getInstance().addC(), index >= 0 && index < tamanho) {
     Node<Tipo>* nodeARemover = getNode(index);
     Node<Tipo>* ant = nodeARemover->getprev();
     Node<Tipo>* pos = nodeARemover->getnext();
@@ -107,10 +107,10 @@ bool ListaEncadeada<Tipo>::temProximo(int pos) {
 
 template <class Tipo>
 Node<Tipo>* ListaEncadeada<Tipo>::getNode(int pos) {
-  if (pos >= tamanho || pos < 0) return NULL;
+  if (Util::getInstance().addC(), pos >= tamanho || pos < 0) return NULL;
   Node<Tipo>* ptr = start;
-  while (pos) {
-    ptr = ptr->getnext();
+  while (Util::getInstance().addC(), pos) {
+    Util::getInstance().addM(), ptr = ptr->getnext();
     pos--;
   }
   return ptr;
@@ -119,7 +119,7 @@ Node<Tipo>* ListaEncadeada<Tipo>::getNode(int pos) {
 template <class Tipo>
 Tipo* ListaEncadeada<Tipo>::get(int pos) {
   Node<Tipo>* node = getNode(pos);
-  if (node == NULL) return NULL;
+  if (Util::getInstance().addC(), node == NULL) return NULL;
   return node->getvalue();
 }
 
@@ -127,11 +127,21 @@ template <class Tipo>
 void ListaEncadeada<Tipo>::limparLista() {
   end = NULL;
   Node<Tipo>* ptr = NULL;
-  while (start) {
+  while (Util::getInstance().addC(), start) {
     ptr = start->getnext();
     delete start;
-    start = ptr;
+    Util::getInstance().addM(), start = ptr;
   }
+}
+
+template <class Tipo>
+Node<Tipo>* ListaEncadeada<Tipo>::getbegin() {
+  return start;
+}
+
+template <class Tipo>
+Node<Tipo>* ListaEncadeada<Tipo>::getend() {
+  return end;
 }
 
 template class ListaEncadeada<Pessoa>;

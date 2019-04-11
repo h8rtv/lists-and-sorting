@@ -58,26 +58,22 @@ int Principal::escolherArquivo() {
 }
 
 void Principal::carregarArquivoSequencial() {
-  auto start = chrono::high_resolution_clock::now();
+  Util::getInstance().start();
   string linha;
   listaSequencial.realocar(leitor.nroLinhasArquivo());
   while (getline(leitor.getArquivo(), linha)) {
     listaSequencial.push(parserParaPessoa(linha));
   }
-  auto finish = chrono::high_resolution_clock::now();
-  chrono::duration<double> diff = finish - start;
-  cout << "TEMPO: " << diff.count() << endl;
+  Util::getInstance().stopAndPrint();
 }
 
 void Principal::carregarArquivoEncadeada() {
-  auto start = chrono::high_resolution_clock::now();
+  Util::getInstance().start();
   string linha;
   while (getline(leitor.getArquivo(), linha)) {
     listaEncadeada.push(parserParaPessoa(linha));
   }
-  auto finish = chrono::high_resolution_clock::now();
-  chrono::duration<double> diff = finish - start;
-  cout << "TEMPO: " << diff.count() << endl;
+  Util::getInstance().stopAndPrint();
   /*   class CB {
       public:
         CB(Principal* pr = NULL) {
@@ -97,112 +93,143 @@ void Principal::carregarArquivoEncadeada() {
 }
 
 void Principal::listarSequencial() {
-  auto start = chrono::high_resolution_clock::now();
+  Util::getInstance().start();
   int i = 0;
   Pessoa pessoa;
   if (listaSequencial.getTamanho() == 0) {
     cout << "Lista vazia." << endl;
   }
-  while (listaSequencial.temProximo(i)) {
+  while (Util::getInstance().addC(), listaSequencial.temProximo(i)) {
     pessoa = listaSequencial[i];
-    cout << i + 1 << ") NOME: " << pessoa.getNome() << ", RG: " << pessoa.getRg() << endl;
+    cout << "[" << i << "] NOME: " << pessoa.getNome() << ", RG: " << pessoa.getRg() << endl;
     i++;
   }
-  auto finish = chrono::high_resolution_clock::now();
-  chrono::duration<double> diff = finish - start;
-  cout << "TEMPO: " << diff.count() << endl;
+  Util::getInstance().stopAndPrint();
 }
 
 void Principal::listarEncadeada() {
-  auto start = chrono::high_resolution_clock::now();
+  Util::getInstance().start();
   int i = 0;
-  Pessoa pessoa;
   if (listaEncadeada.getTamanho() == 0) {
     cout << "Lista vazia." << endl;
   }
-  while (listaEncadeada.temProximo(i)) {
-    pessoa = listaEncadeada[i];
-    cout << i + 1 << ") NOME: " << pessoa.getNome() << ", RG: " << pessoa.getRg() << endl;
+  Pessoa* pessoa;
+  Node<Pessoa>* node = listaEncadeada.getbegin();
+  while (Util::getInstance().addC(), listaEncadeada.temProximo(i) && node != NULL) {
+    pessoa = node->getvalue();
+    cout << "[" << i << "] NOME: " << pessoa->getNome() << ", RG: " << pessoa->getRg() << endl;
     i++;
+    Util::getInstance().addM(), node = node->getnext();
   }
-  auto finish = chrono::high_resolution_clock::now();
-  chrono::duration<double> diff = finish - start;
-  cout << "TEMPO: " << diff.count() << endl;
+  Util::getInstance().stopAndPrint();
 }
 
 void Principal::adicionarFimSequencial() {
-  listaSequencial.push(lerPessoa());
+  Pessoa* pessoa = lerPessoa();
+  Util::getInstance().start();
+  listaSequencial.push(pessoa);
+  Util::getInstance().stopAndPrint();
 }
 
 void Principal::adicionarFimEncadeada() {
-  listaEncadeada.push(lerPessoa());
+  Pessoa* pessoa = lerPessoa();
+  Util::getInstance().start();
+  listaEncadeada.push(pessoa);
+  Util::getInstance().stopAndPrint();
 }
 
 void Principal::adicionarInicioSequencial() {
-  listaSequencial.unshift(lerPessoa());
+  Pessoa* pessoa = lerPessoa();
+  Util::getInstance().start();
+  listaSequencial.unshift(pessoa);
+  Util::getInstance().stopAndPrint();
 }
 
 void Principal::adicionarInicioEncadeada() {
-  listaEncadeada.unshift(lerPessoa());
+  Pessoa* pessoa = lerPessoa();
+  Util::getInstance().start();
+  listaEncadeada.unshift(pessoa);
+  Util::getInstance().stopAndPrint();
 }
 
 void Principal::adicionarMeioSequencial() {
   int i;
   cout << "Digite o índice da busca (0 - " << listaSequencial.getTamanho() - 1 << ")" << endl;
   cin >> i;
-  listaSequencial.add(lerPessoa(), i);
+  Pessoa* pessoa = lerPessoa();
+  Util::getInstance().start();
+  listaSequencial.add(pessoa, i);
+  Util::getInstance().stopAndPrint();
 }
 
 void Principal::adicionarMeioEncadeada() {
   int i;
   cout << "Digite o índice da busca (0 - " << listaEncadeada.getTamanho() - 1 << ")" << endl;
   cin >> i;
-  listaEncadeada.add(lerPessoa(), i);
+  Pessoa* pessoa = lerPessoa();
+  Util::getInstance().start();
+  listaEncadeada.add(pessoa, i);
+  Util::getInstance().stopAndPrint();
 }
 
 void Principal::removerFimSequencial() {
+  Util::getInstance().start();
   listaSequencial.pop();
+  Util::getInstance().stopAndPrint();
 }
 
 void Principal::removerFimEncadeada() {
+  Util::getInstance().start();
   listaEncadeada.pop();
+  Util::getInstance().stopAndPrint();
 }
 
 void Principal::removerInicioSequencial() {
+  Util::getInstance().start();
   listaSequencial.shift();
+  Util::getInstance().stopAndPrint();
 }
 
 void Principal::removerInicioEncadeada() {
+  Util::getInstance().start();
   listaEncadeada.shift();
+  Util::getInstance().stopAndPrint();
 }
 
 void Principal::removerMeioSequencial() {
   int i;
-  cout << "Digite o índice da busca (0 - " << listaSequencial.getTamanho() << ")" << endl;
+  cout << "Digite o índice da busca (0 - " << listaSequencial.getTamanho() - 1 << ")" << endl;
   cin >> i;
+  Util::getInstance().start();
   listaSequencial.remove(i);
+  Util::getInstance().stopAndPrint();
 }
 
 void Principal::removerMeioEncadeada() {
   int i;
-  cout << "Digite o índice da busca (0 - " << listaEncadeada.getTamanho() << ")" << endl;
+  cout << "Digite o índice da busca (0 - " << listaEncadeada.getTamanho() - 1 << ")" << endl;
   cin >> i;
+  Util::getInstance().start();
   listaEncadeada.remove(i);
+  Util::getInstance().stopAndPrint();
 }
 
 void Principal::salvarListaEncadeada() {
+  Util::getInstance().start();
   gravador.abrir(ARQUIVO_SAIDA_ENCADEADA);
   gravador.salvarLista(listaEncadeada);
+  Util::getInstance().stopAndPrint();
 }
 
 void Principal::salvarListaSequencial() {
+  Util::getInstance().start();
   gravador.abrir(ARQUIVO_SAIDA_SEQUENCIAL);
   gravador.salvarLista(listaSequencial);
+  Util::getInstance().stopAndPrint();
 }
 
-
-void Principal::executar() {
-  short opcao = 5;
+void Principal::menuSequencial() {
+  short opcao = 10;
   int codArquivo = -1;
   do {
     cout << "1 - Carregar Sequencial" << endl;
@@ -214,16 +241,7 @@ void Principal::executar() {
     cout << "7 - Adicionar Meio Sequencial" << endl;
     cout << "8 - Remover Meio Sequencial" << endl;
     cout << "9 - Salvar Sequencial" << endl;
-    cout << "10 - Carregar Encadeada" << endl;
-    cout << "11 - Listar Encadeada" << endl;
-    cout << "12 - Adicionar Fim Encadeada" << endl;
-    cout << "13 - Remover Fim Encadeada" << endl;
-    cout << "14 - Adicionar Início Encadeada" << endl;
-    cout << "15 - Remover Início Encadeada" << endl;
-    cout << "16 - Adicionar Meio Encadeada" << endl;
-    cout << "17 - Remover Meio Encadeada" << endl;
-    cout << "18 - Salvar Encadeada" << endl;
-    cout << "19 - Sair" << endl;
+    cout << "10 - Voltar" << endl;
     cin >> opcao;
     if (opcao == 1) {
       codArquivo = escolherArquivo();
@@ -247,33 +265,72 @@ void Principal::executar() {
       removerMeioSequencial();
     } else if (opcao == 9) {
       salvarListaSequencial();
-    } else if (opcao == 10) {
+    } else if (opcao != 10) {
+      cout << "Opção Inválida." << endl;
+    }
+  } while (opcao != 10);
+}
+
+void Principal::menuEncadeada() {
+  short opcao = 10;
+  int codArquivo = -1;
+  do {
+    cout << "1 - Carregar Encadeada" << endl;
+    cout << "2 - Listar Encadeada" << endl;
+    cout << "3 - Adicionar Fim Encadeada" << endl;
+    cout << "4 - Remover Fim Encadeada" << endl;
+    cout << "5 - Adicionar Início Encadeada" << endl;
+    cout << "6 - Remover Início Encadeada" << endl;
+    cout << "7 - Adicionar Meio Encadeada" << endl;
+    cout << "8 - Remover Meio Encadeada" << endl;
+    cout << "9 - Salvar Encadeada" << endl;
+    cout << "10 - Voltar" << endl;
+    cin >> opcao;
+
+    if (opcao == 1) {
       codArquivo = escolherArquivo();
       if (codArquivo != -1) {
         leitor.abrir(ARQUIVOS[codArquivo]);
         carregarArquivoEncadeada();
       }
-    } else if (opcao == 11) {
+    } else if (opcao == 2) {
       listarEncadeada();
-    }else if (opcao == 12) {
+    }else if (opcao == 3) {
       adicionarFimEncadeada();
-    } else if (opcao == 13) {
+    } else if (opcao == 4) {
       removerFimEncadeada();
-    } else if (opcao == 14) {
+    } else if (opcao == 5) {
       adicionarInicioEncadeada();
-    } else if (opcao == 15) {
+    } else if (opcao == 6) {
       removerInicioEncadeada();
-    } else if (opcao == 16) {
+    } else if (opcao == 7) {
       adicionarMeioEncadeada();
-    } else if (opcao == 17) {
+    } else if (opcao == 8) {
       removerMeioEncadeada();
-    } else if (opcao == 18) {
+    } else if (opcao == 9) {
       salvarListaEncadeada();
-    } else if (opcao == 19) {
+    } else if (opcao != 10) {
+      cout << "Opção Inválida." << endl;
+    }
+  } while (opcao != 10);
+}
+
+
+void Principal::executar() {
+  short opcao = 5;
+  do {
+    cout << "1 - Sequencial" << endl;
+    cout << "2 - Encadeada" << endl;
+    cout << "3 - Sair" << endl;
+    cin >> opcao;
+    if (opcao == 1) {
+      menuSequencial();
+    } else if (opcao == 2) {
+      menuEncadeada();
+    } else if (opcao == 3) {
       exit(0);
     } else {
       cout << "Opção Inválida." << endl;
     }
-    cin.get();
   } while (1);
 }

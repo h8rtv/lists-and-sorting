@@ -9,6 +9,7 @@
 #include "../ListaEncadeada/ListaEncadeada.h"
 #include "../Leitor/Leitor.h"
 #include "../Gravador/Gravador.h"
+#include "../Util/Util.h"
 
 using namespace std;
 
@@ -44,4 +45,6 @@ class Principal {
     void removerInicioEncadeada();
     void adicionarMeioEncadeada();
     void removerMeioEncadeada();
+    void menuEncadeada();
+    void menuSequencial();
 };
