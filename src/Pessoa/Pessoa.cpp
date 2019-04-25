@@ -27,3 +27,16 @@ int Pessoa::getRg() {
 string Pessoa::toString() {
   return nome + (rg != -1 ? "," + to_string(rg) : "");
 }
+
+bool Pessoa::operator>(const Pessoa& p) {
+  return rg > p.rg;
+}
+bool Pessoa::operator>=(const Pessoa& p) {
+  return rg >= p.rg;
+}
+bool Pessoa::operator<(const Pessoa& p) {
+  return rg < p.rg;
+}
+bool Pessoa::operator<=(const Pessoa& p) {
+  return rg <= p.rg;
+}

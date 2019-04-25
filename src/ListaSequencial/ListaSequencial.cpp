@@ -7,7 +7,7 @@ template <class Tipo>
 Tipo& ListaSequencial<Tipo>::operator[] (int pos) {
   Tipo* value = get(pos);
   if (Util::getInstance().addC(), value == NULL) {
-    throw std::out_of_range("Índice for do alcance.");
+    throw std::out_of_range("Índice fora do alcance.");
   }
   return *value;
 }
@@ -162,6 +162,55 @@ void ListaSequencial<Tipo>::realocar(int tamanhoExtra) {
       exit(1);
     }
   }
+}
+
+template<class Tipo>
+void ListaSequencial<Tipo>::insertion_sort() {
+  int i, j;
+  Tipo* pivo = NULL;
+  for (i = 1; Util::getInstance().addC(), i < tamanho; i++) {
+    Util::getInstance().addM(), pivo = listaSequencial[i];
+    for (j = i - 1; Util::getInstance().addC(), j >= 0; j--)
+      if (Util::getInstance().addC(), *listaSequencial[j] > *pivo)
+        Util::getInstance().addM(), listaSequencial[j + 1] = listaSequencial[j];
+      else break;
+
+    Util::getInstance().addM(), listaSequencial[j + 1] = pivo;
+  }
+}
+
+template<class Tipo>
+void ListaSequencial<Tipo>::selection_sort() {
+  int iMenor, i, j;
+  Tipo* tmp = NULL;
+  for (i = 0; Util::getInstance().addC(), i < tamanho - 1; i++) {
+    iMenor = i;
+    for (j = i + 1; Util::getInstance().addC(), j < tamanho; j++) {
+      if (Util::getInstance().addC(), *listaSequencial[j] < *listaSequencial[iMenor])
+        Util::getInstance().addM(), iMenor = j;
+    }
+    if (Util::getInstance().addC(), i != iMenor) {
+      Util::getInstance().addM(), tmp = listaSequencial[iMenor]; 
+      Util::getInstance().addM(), listaSequencial[iMenor] = listaSequencial[i];
+      Util::getInstance().addM(), listaSequencial[i] = tmp;
+    }
+  }
+}
+
+template<class Tipo>
+void ListaSequencial<Tipo>::bubble_sort() {
+  bool trocaOcorreu;
+  Tipo* tmp = NULL;
+   do {
+    trocaOcorreu = false;
+    for (int i = 0; i < tamanho - 1; i++)
+      if (Util::getInstance().addC(), *listaSequencial[i] > *listaSequencial[i + 1]) {
+        Util::getInstance().addM(), tmp = listaSequencial[i]; 
+        Util::getInstance().addM(), listaSequencial[i] = listaSequencial[i + 1];
+        Util::getInstance().addM(), listaSequencial[i + 1] = tmp;
+        Util::getInstance().addM(), trocaOcorreu = true;
+      }
+  } while (trocaOcorreu);
 }
 
 template class ListaSequencial<Pessoa>;

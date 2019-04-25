@@ -5,7 +5,7 @@ template <class Tipo>
 Tipo& ListaEncadeada<Tipo>::operator[] (int pos) {
   Tipo* value = get(pos);
   if (Util::getInstance().addC(), value == NULL) {
-    throw std::out_of_range("Índice for do alcance.");
+    throw std::out_of_range("Índice fora do alcance.");
   }
   return *value;
 }

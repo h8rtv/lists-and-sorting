@@ -15,4 +15,8 @@ class Pessoa {
     void setRg(int _rg);
     int getRg();
     string toString();
+    bool operator>(const Pessoa& p);
+    bool operator>=(const Pessoa& p);
+    bool operator<(const Pessoa& p);
+    bool operator<=(const Pessoa& p);
 };

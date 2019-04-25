@@ -298,7 +298,7 @@ void Principal::buscaSequencial() {
 
 
 void Principal::menuSequencial() {
-  short opcao = 10;
+  short opcao = 12;
   int codArquivo = -1;
   do {
     cout << "1 - Carregar Sequencial" << endl;
@@ -311,7 +311,8 @@ void Principal::menuSequencial() {
     cout << "8 - Adicionar Meio Sequencial" << endl;
     cout << "9 - Remover Meio Sequencial" << endl;
     cout << "10 - Salvar Sequencial" << endl;
-    cout << "11 - Voltar" << endl;
+    cout << "11 - Ordenar Sequencial" << endl;
+    cout << "12 - Voltar" << endl;
     cin >> opcao;
     if (opcao == 1) {
       codArquivo = escolherArquivo();
@@ -337,14 +338,16 @@ void Principal::menuSequencial() {
       removerMeioSequencial();
     } else if (opcao == 10) {
       salvarListaSequencial();
-    } else if (opcao != 11) {
+    } else if (opcao == 11) {
+      ordenarSequencial();
+    } else if (opcao != 12) {
       cout << "Opção Inválida." << endl;
     }
-  } while (opcao != 11);
+  } while (opcao != 12);
 }
 
 void Principal::menuEncadeada() {
-  short opcao = 10;
+  short opcao = 12;
   int codArquivo = -1;
   do {
     cout << "1 - Carregar Encadeada" << endl;
@@ -384,10 +387,12 @@ void Principal::menuEncadeada() {
       removerMeioEncadeada();
     } else if (opcao == 10) {
       salvarListaEncadeada();
-    } else if (opcao != 11) {
+    } else if (opcao == 11) {
+      ordenarEncadeada();
+    } else if (opcao != 12) {
       cout << "Opção Inválida." << endl;
     }
-  } while (opcao != 11);
+  } while (opcao != 12);
 }
 
 
@@ -408,4 +413,55 @@ void Principal::executar() {
       cout << "Opção Inválida." << endl;
     }
   } while (1);
+}
+
+short Principal::menuOrdenar() {
+  short opcao = 4;
+  cout << "1 - Selection Sort" << endl;
+  cout << "2 - Insertion Sort" << endl;
+  cout << "3 - Bubble Sort" << endl;
+  cout << "4 - Voltar" << endl;
+  cin >> opcao;
+  return opcao;
+}
+
+void Principal::ordenarSequencial() {
+  switch (menuOrdenar()) {
+  case 1:
+    Util::getInstance().start();
+    listaSequencial.selection_sort();
+    Util::getInstance().stopAndPrint();
+    break;
+  case 2:
+    Util::getInstance().start();
+    listaSequencial.insertion_sort();
+    Util::getInstance().stopAndPrint();
+    break;
+  case 3:
+    Util::getInstance().start();
+    listaSequencial.bubble_sort();
+    Util::getInstance().stopAndPrint();
+    break;
+  case 4:
+    break;
+  default:
+    cout << "Opção Inválida." << endl;
+    break;
+  }
+}
+
+void Principal::ordenarEncadeada() {
+  short opcao = menuOrdenar();
+  switch (opcao) {
+  case 1:
+    break;
+  case 2:
+    break;
+  case 3:
+    break;
+  case 4:
+    break;
+  default:
+    break;
+  }
 }

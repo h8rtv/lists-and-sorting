@@ -29,4 +29,7 @@ class ListaSequencial {
     void instanciar(int _tamanho);
     void limparLista();
     bool temProximo(int pos);
+    void selection_sort();
+    void insertion_sort();
+    void bubble_sort();
 };
