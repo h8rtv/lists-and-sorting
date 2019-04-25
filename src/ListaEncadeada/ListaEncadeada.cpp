@@ -145,8 +145,77 @@ Node<Tipo>* ListaEncadeada<Tipo>::getbegin() {
 }
 
 template <class Tipo>
-Node<Tipo>* ListaEncadeada<Tipo>::getend() {
-  return end;
+void ListaEncadeada<Tipo>::mapFromArray(ListaSequencial<Tipo>* array) {
+  Node<Tipo>* node = getbegin();
+  for (int i = 0; i < array->getTamanho(); i++) {
+    if (node == NULL) {
+      push(array->get(i));
+    } else {
+      node->setvalue(array->get(i));
+      node = node->getnext();
+    }
+  }
 }
+
+template <class Tipo>
+ListaSequencial<Tipo>* ListaEncadeada<Tipo>::mapToArray() {
+  ListaSequencial<Tipo>* arr = new ListaSequencial<Tipo>(tamanho);
+  Node<Tipo>* inicio = getbegin();
+  int i = 0;
+  while (inicio != NULL) {
+      arr->set(i, inicio->getvalue());
+      inicio = inicio->getnext();
+  }
+  return arr;
+}
+
+// template<class Tipo>
+// void ListaEncadeada<Tipo>::insertion_sort() {
+//   int i, j;
+//   Node* pivo = NULL;
+//   for (i = 1; Util::getInstance().addC(), i < tamanho; i++) {
+//     Util::getInstance().addM(), pivo = listaSequencial[i];
+//     for (j = i - 1; Util::getInstance().addC(), j >= 0; j--)
+//       if (Util::getInstance().addC(), *listaSequencial[j] > *pivo)
+//         Util::getInstance().addM(), listaSequencial[j + 1] = listaSequencial[j];
+//       else break;
+//
+//     Util::getInstance().addM(), listaSequencial[j + 1] = pivo;
+//   }
+// }
+//
+// template<class Tipo>
+// void ListaEncadeada<Tipo>::selection_sort() {
+//   int iMenor, i, j;
+//   Tipo* tmp = NULL;
+//   for (i = 0; Util::getInstance().addC(), i < tamanho - 1; i++) {
+//     iMenor = i;
+//     for (j = i + 1; Util::getInstance().addC(), j < tamanho; j++) {
+//       if (Util::getInstance().addC(), *listaSequencial[j] < *listaSequencial[iMenor])
+//         Util::getInstance().addM(), iMenor = j;
+//     }
+//     if (Util::getInstance().addC(), i != iMenor) {
+//       Util::getInstance().addM(), tmp = listaSequencial[iMenor];
+//       Util::getInstance().addM(), listaSequencial[iMenor] = listaSequencial[i];
+//       Util::getInstance().addM(), listaSequencial[i] = tmp;
+//     }
+//   }
+// }
+//
+// template<class Tipo>
+// void ListaEncadeada<Tipo>::bubble_sort() {
+//   bool trocaOcorreu;
+//   Tipo* tmp = NULL;
+//    do {
+//     trocaOcorreu = false;
+//     for (int i = 0; i < tamanho - 1; i++)
+//       if (Util::getInstance().addC(), *listaSequencial[i] > *listaSequencial[i + 1]) {
+//         Util::getInstance().addM(), tmp = listaSequencial[i];
+//         Util::getInstance().addM(), listaSequencial[i] = listaSequencial[i + 1];
+//         Util::getInstance().addM(), listaSequencial[i + 1] = tmp;
+//         Util::getInstance().addM(), trocaOcorreu = true;
+//       }
+//   } while (trocaOcorreu);
+// }
 
 template class ListaEncadeada<Pessoa>;

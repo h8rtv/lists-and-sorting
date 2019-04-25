@@ -1,6 +1,7 @@
 #pragma once
 #include <cstddef>
 #include "Node/Node.h"
+#include "../ListaSequencial/ListaSequencial.h"
 #include "../Pessoa/Pessoa.h"
 #include "../Util/Util.h"
 
@@ -30,4 +31,9 @@ class ListaEncadeada {
     void limparLista();
     Node<Tipo>* getbegin();
     Node<Tipo>* getend();
+    ListaSequencial<Tipo>* mapToArray();
+    void mapFromArray(ListaSequencial<Tipo>* array);
+    // void selection_sort();
+    // void insertion_sort();
+    // void bubble_sort();
 };

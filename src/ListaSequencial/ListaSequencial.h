@@ -26,6 +26,7 @@ class ListaSequencial {
     void remove(int index);
     void realocar(int tamanhoExtra);
     Tipo* get(int pos);
+    bool set(int pos, Tipo* value);
     void instanciar(int _tamanho);
     void limparLista();
     bool temProximo(int pos);

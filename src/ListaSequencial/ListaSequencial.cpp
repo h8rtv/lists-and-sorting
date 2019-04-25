@@ -116,6 +116,13 @@ Tipo* ListaSequencial<Tipo>::get(int pos) {
 }
 
 template <class Tipo>
+bool ListaSequencial<Tipo>::set(int pos, Tipo* value) {
+  if (Util::getInstance().addC(), pos < 0 || pos >= tamanho) return false;
+  listaSequencial[pos] = value;
+  return true;
+}
+
+template <class Tipo>
 void ListaSequencial<Tipo>::limparLista() {
   for (int i = 0; Util::getInstance().addC(), i < tamanho; i++) {
     delete listaSequencial[i];
@@ -190,7 +197,7 @@ void ListaSequencial<Tipo>::selection_sort() {
         Util::getInstance().addM(), iMenor = j;
     }
     if (Util::getInstance().addC(), i != iMenor) {
-      Util::getInstance().addM(), tmp = listaSequencial[iMenor]; 
+      Util::getInstance().addM(), tmp = listaSequencial[iMenor];
       Util::getInstance().addM(), listaSequencial[iMenor] = listaSequencial[i];
       Util::getInstance().addM(), listaSequencial[i] = tmp;
     }
@@ -205,7 +212,7 @@ void ListaSequencial<Tipo>::bubble_sort() {
     trocaOcorreu = false;
     for (int i = 0; i < tamanho - 1; i++)
       if (Util::getInstance().addC(), *listaSequencial[i] > *listaSequencial[i + 1]) {
-        Util::getInstance().addM(), tmp = listaSequencial[i]; 
+        Util::getInstance().addM(), tmp = listaSequencial[i];
         Util::getInstance().addM(), listaSequencial[i] = listaSequencial[i + 1];
         Util::getInstance().addM(), listaSequencial[i + 1] = tmp;
         Util::getInstance().addM(), trocaOcorreu = true;
