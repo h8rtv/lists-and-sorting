@@ -360,7 +360,8 @@ void Principal::menuEncadeada() {
     cout << "8 - Adicionar Meio Encadeada" << endl;
     cout << "9 - Remover Meio Encadeada" << endl;
     cout << "10 - Salvar Encadeada" << endl;
-    cout << "11 - Voltar" << endl;
+    cout << "11 - Ordenar Encadeada" << endl;
+    cout << "12 - Voltar" << endl;
     cin >> opcao;
 
     if (opcao == 1) {
@@ -451,17 +452,26 @@ void Principal::ordenarSequencial() {
 }
 
 void Principal::ordenarEncadeada() {
-  short opcao = menuOrdenar();
-  switch (opcao) {
+  switch (menuOrdenar()) {
   case 1:
+    Util::getInstance().start();
+    listaEncadeada.selection_sort();
+    Util::getInstance().stopAndPrint();
     break;
   case 2:
+    Util::getInstance().start();
+    listaEncadeada.insertion_sort();
+    Util::getInstance().stopAndPrint();
     break;
   case 3:
+    Util::getInstance().start();
+    listaEncadeada.bubble_sort();
+    Util::getInstance().stopAndPrint();
     break;
   case 4:
     break;
   default:
+    cout << "Opção Inválida." << endl;
     break;
   }
 }

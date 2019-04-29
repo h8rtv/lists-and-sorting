@@ -13,14 +13,15 @@ Tipo& ListaSequencial<Tipo>::operator[] (int pos) {
 }
 
 template <class Tipo>
-ListaSequencial<Tipo>::ListaSequencial(int _tamanho) {
-  tamanho = 0;
-  espacoAlocado = _tamanho;
-  if (Util::getInstance().addC(), espacoAlocado > 0) {
+ListaSequencial<Tipo>::ListaSequencial(int _tamanho, bool _ownerOfObjs):
+  tamanho(0),
+  espacoAlocado(_tamanho),
+  listaSequencial(NULL),
+  ownerOfObjs(_ownerOfObjs)
+{
+  
+  if (Util::getInstance().addC(), espacoAlocado > 0)
     instanciar(espacoAlocado);
-  } else {
-    listaSequencial = NULL;
-  }
 }
 
 template <class Tipo>
@@ -124,8 +125,10 @@ bool ListaSequencial<Tipo>::set(int pos, Tipo* value) {
 
 template <class Tipo>
 void ListaSequencial<Tipo>::limparLista() {
-  for (int i = 0; Util::getInstance().addC(), i < tamanho; i++) {
-    delete listaSequencial[i];
+  if (Util::getInstance().addC(), ownerOfObjs) {
+    for (int i = 0; Util::getInstance().addC(), i < tamanho; i++) {
+      delete listaSequencial[i];
+    }
   }
   delete[] listaSequencial;
   listaSequencial = NULL;
@@ -181,8 +184,8 @@ void ListaSequencial<Tipo>::insertion_sort() {
       if (Util::getInstance().addC(), *listaSequencial[j] > *pivo)
         Util::getInstance().addM(), listaSequencial[j + 1] = listaSequencial[j];
       else break;
-
-    Util::getInstance().addM(), listaSequencial[j + 1] = pivo;
+    if (Util::getInstance().addC(), i != j + 1)
+      Util::getInstance().addM(), listaSequencial[j + 1] = pivo;
   }
 }
 

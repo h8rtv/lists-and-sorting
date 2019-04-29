@@ -29,11 +29,12 @@ class ListaEncadeada {
     Tipo* get(int pos);
     Node<Tipo>* getNode(int pos);
     void limparLista();
+    void limparListaSemDesalocar();
     Node<Tipo>* getbegin();
     Node<Tipo>* getend();
     ListaSequencial<Tipo>* mapToArray();
-    void mapFromArray(ListaSequencial<Tipo>* array);
-    // void selection_sort();
-    // void insertion_sort();
-    // void bubble_sort();
+    void mapFromArray(ListaSequencial<Tipo>& array);
+    void selection_sort();
+    void insertion_sort();
+    void bubble_sort();
 };

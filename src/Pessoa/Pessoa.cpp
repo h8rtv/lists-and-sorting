@@ -40,3 +40,7 @@ bool Pessoa::operator<(const Pessoa& p) {
 bool Pessoa::operator<=(const Pessoa& p) {
   return rg <= p.rg;
 }
+
+Pessoa* Pessoa::clone() {
+  return new Pessoa(nome, rg);
+}

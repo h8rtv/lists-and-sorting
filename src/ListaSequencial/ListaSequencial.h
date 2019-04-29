@@ -12,10 +12,11 @@ class ListaSequencial {
     int espacoAlocado;
     int tamanho;
     Tipo** listaSequencial;
+    bool ownerOfObjs;
 
   public:
     Tipo& operator[] (int pos);
-    ListaSequencial(int _tamanho = 0);
+    ListaSequencial(int _tamanho = 0, bool _ownerOfObjs = true);
     ~ListaSequencial();
     int getTamanho();
     void push(Tipo* valor);

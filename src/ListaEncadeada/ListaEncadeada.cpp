@@ -1,6 +1,6 @@
 #include "ListaEncadeada.h"
 #include <stdexcept>
-
+#include <cassert>
 template <class Tipo>
 Tipo& ListaEncadeada<Tipo>::operator[] (int pos) {
   Tipo* value = get(pos);
@@ -130,14 +130,22 @@ Tipo* ListaEncadeada<Tipo>::get(int pos) {
 
 template <class Tipo>
 void ListaEncadeada<Tipo>::limparLista() {
-  end = NULL;
-  Node<Tipo>* ptr = NULL;
+  tamanho = 0;
+  end = new Node<Tipo>;
   while (Util::getInstance().addC(), start) {
-    ptr = start->getnext();
     delete start;
-    Util::getInstance().addM(), start = ptr;
+    Util::getInstance().addM(), start = start->getnext();
   }
+  start = end;
 }
+
+template <class Tipo>
+void ListaEncadeada<Tipo>::limparListaSemDesalocar() {
+  start = new Node<Tipo>;
+  end = start;
+  tamanho = 0;
+}
+
 
 template <class Tipo>
 Node<Tipo>* ListaEncadeada<Tipo>::getbegin() {
@@ -145,77 +153,46 @@ Node<Tipo>* ListaEncadeada<Tipo>::getbegin() {
 }
 
 template <class Tipo>
-void ListaEncadeada<Tipo>::mapFromArray(ListaSequencial<Tipo>* array) {
-  Node<Tipo>* node = getbegin();
-  for (int i = 0; i < array->getTamanho(); i++) {
-    if (node == NULL) {
-      push(array->get(i));
-    } else {
-      node->setvalue(array->get(i));
-      node = node->getnext();
-    }
+void ListaEncadeada<Tipo>::mapFromArray(ListaSequencial<Tipo>& array) {
+  limparListaSemDesalocar();
+  for (int i = 0; i < array.getTamanho(); i++) {
+    push(array.get(i)); 
   }
 }
 
 template <class Tipo>
 ListaSequencial<Tipo>* ListaEncadeada<Tipo>::mapToArray() {
-  ListaSequencial<Tipo>* arr = new ListaSequencial<Tipo>(tamanho);
+  ListaSequencial<Tipo>* arr = new ListaSequencial<Tipo>(tamanho, false);
   Node<Tipo>* inicio = getbegin();
-  int i = 0;
   while (inicio != NULL) {
-      arr->set(i, inicio->getvalue());
-      inicio = inicio->getnext();
+    arr->push(inicio->getvalue());
+    inicio = inicio->getnext();
   }
   return arr;
 }
 
-// template<class Tipo>
-// void ListaEncadeada<Tipo>::insertion_sort() {
-//   int i, j;
-//   Node* pivo = NULL;
-//   for (i = 1; Util::getInstance().addC(), i < tamanho; i++) {
-//     Util::getInstance().addM(), pivo = listaSequencial[i];
-//     for (j = i - 1; Util::getInstance().addC(), j >= 0; j--)
-//       if (Util::getInstance().addC(), *listaSequencial[j] > *pivo)
-//         Util::getInstance().addM(), listaSequencial[j + 1] = listaSequencial[j];
-//       else break;
-//
-//     Util::getInstance().addM(), listaSequencial[j + 1] = pivo;
-//   }
-// }
-//
-// template<class Tipo>
-// void ListaEncadeada<Tipo>::selection_sort() {
-//   int iMenor, i, j;
-//   Tipo* tmp = NULL;
-//   for (i = 0; Util::getInstance().addC(), i < tamanho - 1; i++) {
-//     iMenor = i;
-//     for (j = i + 1; Util::getInstance().addC(), j < tamanho; j++) {
-//       if (Util::getInstance().addC(), *listaSequencial[j] < *listaSequencial[iMenor])
-//         Util::getInstance().addM(), iMenor = j;
-//     }
-//     if (Util::getInstance().addC(), i != iMenor) {
-//       Util::getInstance().addM(), tmp = listaSequencial[iMenor];
-//       Util::getInstance().addM(), listaSequencial[iMenor] = listaSequencial[i];
-//       Util::getInstance().addM(), listaSequencial[i] = tmp;
-//     }
-//   }
-// }
-//
-// template<class Tipo>
-// void ListaEncadeada<Tipo>::bubble_sort() {
-//   bool trocaOcorreu;
-//   Tipo* tmp = NULL;
-//    do {
-//     trocaOcorreu = false;
-//     for (int i = 0; i < tamanho - 1; i++)
-//       if (Util::getInstance().addC(), *listaSequencial[i] > *listaSequencial[i + 1]) {
-//         Util::getInstance().addM(), tmp = listaSequencial[i];
-//         Util::getInstance().addM(), listaSequencial[i] = listaSequencial[i + 1];
-//         Util::getInstance().addM(), listaSequencial[i + 1] = tmp;
-//         Util::getInstance().addM(), trocaOcorreu = true;
-//       }
-//   } while (trocaOcorreu);
-// }
+template<class Tipo>
+void ListaEncadeada<Tipo>::insertion_sort() {
+  ListaSequencial<Tipo>* array = mapToArray();
+  array->insertion_sort();
+  mapFromArray(*array);
+  delete array;
+}
+
+template<class Tipo>
+void ListaEncadeada<Tipo>::selection_sort() {
+  ListaSequencial<Tipo>* array = mapToArray();
+  array->selection_sort();
+  mapFromArray(*array);
+  delete array;
+}
+
+template<class Tipo>
+void ListaEncadeada<Tipo>::bubble_sort() {
+  ListaSequencial<Tipo>* array = mapToArray();
+  array->bubble_sort();
+  mapFromArray(*array);
+  delete array;
+}
 
 template class ListaEncadeada<Pessoa>;
