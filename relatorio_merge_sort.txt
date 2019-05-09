@@ -1,0 +1,64 @@
+O merge sort é um método de ordenação do tipo divide and conquer, em que o vetor
+é dividido em partes e ordenado separadamente, após isso, ele é novamente únido.
+Existem implementações desse algoritmo de maneira recursiva e iterativa, sendo a
+primeira a mais popular. É naturalmente estável. Tem um pior caso aceitável
+(O(n*log n)), ganhando de métodos como o quicksort nesses casos. Mesmo tendo um
+pior caso bom, em questões de performance é inferior ao quicksort. Necessita tam-
+bém de vetores auxiliares em implementações padrão, diferentemente do quicksort,
+que consegue realizar tudo in-place. Por ser um algoritmo recursivo naturalmente,
+assim como o quicksort, pode ter problemas de stack overflow, onde a pilha recur-
+siva fica tão grande até o ponto de não conseguir ser armazenada, gerando o erro,
+mas isso só ocorrerá em listas muito grandes, já que a quantidade de chamadas re-
+cursivas varia numa função logarítimica (log2 10.000.000.000 = 33,2192809489, ou
+seja, aproxiimadamente 33 chamadas para uma lista com 10 bilhões de elementos).
+O mergesort também leva vantagem sobre alguns algoritimos quando o objetivo é or-
+denar listas encadeadas, pois neste caso, o algoritmo consegue ser feito sem ne-
+cessidade de vetores auxiliares.
+
+Algoritmo de Merge 2-way (A base do mergesort) - Dado dos vetores ordenados, unir eles
+de maneira que fiquem ordenados:
+  Procedimento 1 - Comparar o elemento i do vetor 1 com o elemento j do vetor 2;
+  O vencedor terá seu contador aumentado e seu valor adicionado à lista final. Isso
+  será realizado até que um dos vetores chegue ao fim.
+
+  Procedimento 2 - Verificar se alguma das listas ainda possui elementos. Caso
+  positivo, adicioná-los ao fim da lista final.
+
+  Exemplo: merge 2-way de [1, 6] e [3, 7]
+    1) Compara 1 e 3 -> 1 ganha -> lista final = [1]
+    2) Compara 6 e 3 -> 3 ganha -> lista final = [1, 3]
+    3) Compara 6 e 7 -> 6 ganha -> lista final = [1, 3, 6] -> fim da primeira lista
+    4) Checar se a primeira lista ainda tem elementos -> não tem
+    5) Checar se segunda lista ainda tem elementos -> tem (7) -> adicioná-los ->
+      lista final = [1, 3, 6, 7]
+    6) Fim do algoritmo
+
+Funcionamento do mergesort:
+Exemplo com a lista sequencial V = [5, 9, 3, 1, 3, 7, 8, 4], n = 8
+
+Procedimento 1 - Dividir Recursivamente:
+  - Achar o meio e dividir em dois subvetores
+  - Isso será realizado até que se atinja um subvetor ordenado, ou seja, se só
+houver um elemento dentro dele.
+
+log2 n = 3, ou seja, três chamadas recursivas;
+
+-> [5, 9, 3, 1, 3, 7, 8, 4] - chamada inicial
+-> [5, 9, 3, 1][3, 7, 8, 4] - chamada 1
+-> [5, 9][3, 1][3, 7][8, 4] - chamada 2
+-> [5][9][3][1][3][7][8][4] - chamada 3
+
+Procedimento 2 - Merging:
+  - Aplicar o algoritmo de merge 2-way em cada cadeira recursiva;
+
+-> [5, 9][1, 3][3, 7][4, 8] - chamada 2
+-> [1, 3, 5, 9][3, 4, 7, 8] - chamada 1
+-> [1, 3, 3, 4, 5, 7, 8, 9] - chamada inicial
+
+-> [5][9][3][1][3][7][8][4]
+-> ([5] merge [9]) ([3] merge [1]) ([3] merge [7]) ([8] merge [4]) - chamada 3
+->     ([5, 9]  merge  [1, 3])          ([3, 7]  merge  [4, 8])    - chamada 2
+->                 [1, 3, 5, 9] merge [3, 4, 7, 8]                 - chamada 1
+->                     [1, 3, 3, 4, 5, 7, 8, 9]                    - chamada inicial
+
+Retorno: [1, 3, 3, 4, 5, 7, 8, 9]

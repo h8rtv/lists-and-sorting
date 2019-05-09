@@ -237,6 +237,20 @@ void ListaSequencial<Tipo>::merge_sort_recursion(Tipo** aux, int comeco, int fim
     merge_sort_recursion(aux, meio + 1, fim);
     merge_sort_recursion(aux, comeco, meio);
     Helper::merge(listaSequencial, aux, comeco, meio, fim);
+    // Mostrando linha a linha, caso seja uma lista de tamanho menor que 100
+    if (tamanho < 100) {
+      cout << "Resultados após o merge: " << endl;
+      for (int i = 0; i < tamanho; i++, cout << " ") {
+        if (i == comeco)
+          cout << "[ ";
+        cout << listaSequencial[i]->getRg();
+        if (i == fim)
+          cout << " ]";
+        else if (i == meio)
+          cout << " |";
+      }
+      cout << endl << endl;
+    }
   }
 }
 
