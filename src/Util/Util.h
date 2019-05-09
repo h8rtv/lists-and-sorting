@@ -2,11 +2,16 @@
 #include <chrono>
 #include <iostream>
 
+#include "../ListaSequencial/ListaSequencial.h"
+
 using std::cout;
 using std::endl;
 using std::chrono::high_resolution_clock;
 typedef std::chrono::_V2::system_clock::time_point time_point;
 typedef std::chrono::duration<double> duration;
+
+template<class Tipo>
+class ListaSequencial;
 
 struct Relatorio {
   Relatorio() {
@@ -34,3 +39,27 @@ class Util {
     void stopAndPrint();
 };
 
+
+namespace Helper {
+  template <class Tipo>
+  /* Realiza o merge in-place, utilizando uma lista auxiliar */
+  void merge(Tipo** lista, Tipo** aux, int comeco, int meio, int fim) {
+    int i = comeco,
+        j = meio + 1,
+        k = comeco;
+    while (Util::getInstance().addC(), i <= meio && j <= fim)
+      if (Util::getInstance().addC(), *lista[i] < *lista[j])
+        aux[k++] = lista[i++];
+      else
+        aux[k++] = lista[j++];
+
+    while (Util::getInstance().addC(), i <= meio)
+      aux[k++] = lista[i++];
+ 
+    while (Util::getInstance().addC(), j <= fim)
+      aux[k++] = lista[j++];
+
+    for (int l = comeco; l <= fim; l++)
+      lista[l] = aux[l];
+  }
+};

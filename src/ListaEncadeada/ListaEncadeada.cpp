@@ -195,4 +195,12 @@ void ListaEncadeada<Tipo>::bubble_sort() {
   delete array;
 }
 
+template<class Tipo>
+void ListaEncadeada<Tipo>::merge_sort() {
+  ListaSequencial<Tipo>* array = mapToArray();
+  array->merge_sort();
+  mapFromArray(*array);
+  delete array;
+}
+
 template class ListaEncadeada<Pessoa>;

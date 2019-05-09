@@ -417,11 +417,12 @@ void Principal::executar() {
 }
 
 short Principal::menuOrdenar() {
-  short opcao = 4;
+  short opcao = 5;
   cout << "1 - Selection Sort" << endl;
   cout << "2 - Insertion Sort" << endl;
   cout << "3 - Bubble Sort" << endl;
-  cout << "4 - Voltar" << endl;
+  cout << "4 - Merge Sort" << endl;
+  cout << "5 - Voltar" << endl;
   cin >> opcao;
   return opcao;
 }
@@ -444,6 +445,11 @@ void Principal::ordenarSequencial() {
     Util::getInstance().stopAndPrint();
     break;
   case 4:
+    Util::getInstance().start();
+    listaSequencial.merge_sort();
+    Util::getInstance().stopAndPrint();
+    break;
+  case 5:
     break;
   default:
     cout << "Opção Inválida." << endl;
@@ -469,6 +475,11 @@ void Principal::ordenarEncadeada() {
     Util::getInstance().stopAndPrint();
     break;
   case 4:
+    Util::getInstance().start();
+    listaEncadeada.merge_sort();
+    Util::getInstance().stopAndPrint();
+    break;
+  case 5:
     break;
   default:
     cout << "Opção Inválida." << endl;

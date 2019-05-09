@@ -37,4 +37,5 @@ class ListaEncadeada {
     void selection_sort();
     void insertion_sort();
     void bubble_sort();
+    void merge_sort();
 };

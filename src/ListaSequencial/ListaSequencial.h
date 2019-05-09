@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include <stdlib.h>
+#include <stdexcept>
 #include "../Pessoa/Pessoa.h"
 #include "../Util/Util.h"
 
@@ -34,4 +35,6 @@ class ListaSequencial {
     void selection_sort();
     void insertion_sort();
     void bubble_sort();
+    void merge_sort();
+    void merge_sort_recursion(Tipo** aux, int comeco, int fim);
 };

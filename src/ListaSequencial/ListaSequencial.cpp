@@ -1,5 +1,4 @@
 #include "ListaSequencial.h"
-#include <stdexcept>
 
 const int SIZE_ALOCACAO = 100;
 
@@ -213,7 +212,7 @@ void ListaSequencial<Tipo>::bubble_sort() {
   Tipo* tmp = NULL;
    do {
     trocaOcorreu = false;
-    for (int i = 0; i < tamanho - 1; i++)
+    for (int i = 0; Util::getInstance().addC(), i < tamanho - 1; i++)
       if (Util::getInstance().addC(), *listaSequencial[i] > *listaSequencial[i + 1]) {
         Util::getInstance().addM(), tmp = listaSequencial[i];
         Util::getInstance().addM(), listaSequencial[i] = listaSequencial[i + 1];
@@ -221,6 +220,24 @@ void ListaSequencial<Tipo>::bubble_sort() {
         Util::getInstance().addM(), trocaOcorreu = true;
       }
   } while (trocaOcorreu);
+}
+
+template<class Tipo>
+void ListaSequencial<Tipo>::merge_sort() {
+  Tipo** clone = new Tipo*[tamanho];
+  // copy(listaSequencial, listaSequencial + tamanho, clone);
+  merge_sort_recursion(clone, 0, tamanho - 1);
+  delete[] clone;
+}
+
+template<class Tipo>
+void ListaSequencial<Tipo>::merge_sort_recursion(Tipo** aux, int comeco, int fim) {
+  if (Util::getInstance().addC(), comeco < fim) {
+    int meio = (comeco + fim) / 2;
+    merge_sort_recursion(aux, meio + 1, fim);
+    merge_sort_recursion(aux, comeco, meio);
+    Helper::merge(listaSequencial, aux, comeco, meio, fim);
+  }
 }
 
 template class ListaSequencial<Pessoa>;
