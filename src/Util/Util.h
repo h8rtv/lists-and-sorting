@@ -1,7 +1,6 @@
 #pragma once
 #include <chrono>
 #include <iostream>
-
 #include "../ListaSequencial/ListaSequencial.h"
 
 using std::cout;
@@ -41,25 +40,36 @@ class Util {
 
 
 namespace Helper {
+  int max(int a, int b);
   template <class Tipo>
   /* Realiza o merge in-place, utilizando uma lista auxiliar */
   void merge(Tipo** lista, Tipo** aux, int comeco, int meio, int fim) {
+    Util& util = Util::getInstance();
     int i = comeco,
         j = meio + 1,
         k = comeco;
-    while (Util::getInstance().addC(), i <= meio && j <= fim)
-      if (Util::getInstance().addC(), *lista[i] < *lista[j])
+    int moves = max(meio - i + 1, fim - j + 1);
+    util.addC(2 * moves);
+    util.addM(moves);
+    while (i <= meio && j <= fim)
+      if (*lista[i] < *lista[j])
         aux[k++] = lista[i++];
       else
         aux[k++] = lista[j++];
 
-    while (Util::getInstance().addC(), i <= meio)
+    moves = meio - i + 1;
+    util.addC(moves);
+    util.addM(moves);
+    while (i <= meio)
       aux[k++] = lista[i++];
- 
-    while (Util::getInstance().addC(), j <= fim)
+
+    moves = fim - j + 1;
+    util.addC(moves);
+    util.addM(moves);
+    while (j <= fim)
       aux[k++] = lista[j++];
 
-    for (int l = comeco; l <= fim; l++)
-      lista[l] = aux[l];
+    util.addM(fim - comeco);
+    std::copy(aux + comeco, aux + fim + 1, lista + comeco);
   }
 };

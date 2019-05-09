@@ -34,3 +34,7 @@ void Util::stopAndPrint() {
     running = false;
   }
 }
+
+int Helper::max(int a, int b) {
+  return a > b ? a : b;
+}
