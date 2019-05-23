@@ -50,6 +50,8 @@ class Principal {
     void menuSequencial();
     void buscaSequencial();
     void buscaEncadeada();
+    void buscaBinariaSequencial();
+    void buscaBinariaEncadeada();
     void ordenarSequencial();
     void ordenarEncadeada();
     short menuOrdenar();

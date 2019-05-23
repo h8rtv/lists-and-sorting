@@ -203,4 +203,20 @@ void ListaEncadeada<Tipo>::merge_sort() {
   delete array;
 }
 
+template<class Tipo>
+void ListaEncadeada<Tipo>::quick_sort() {
+  ListaSequencial<Tipo>* array = mapToArray();
+  array->quick_sort();
+  mapFromArray(*array);
+  delete array;
+}
+
+template<class Tipo>
+void ListaEncadeada<Tipo>::shell_sort() {
+  ListaSequencial<Tipo>* array = mapToArray();
+  array->shell_sort();
+  mapFromArray(*array);
+  delete array;
+}
+
 template class ListaEncadeada<Pessoa>;

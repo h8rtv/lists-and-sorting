@@ -296,9 +296,48 @@ void Principal::buscaSequencial() {
   Util::getInstance().stopAndPrint();
 }
 
+int encontrarBinario(ListaSequencial<Pessoa>& lista, int rg) {
+  Pessoa p;
+  int comeco = 0;
+  int fim = lista.getTamanho() - 1;
+  int meio;
+  while (comeco <= fim) {
+    meio = (fim + comeco) / 2;
+    p = lista[meio];
+    if (p.getRg() == rg)
+      return meio;
+    else if (p.getRg() < rg)
+      comeco = meio + 1;
+    else
+      fim = meio - 1;
+  }
+  return -1;
+}
+
+void Principal::buscaBinariaSequencial() {
+  int rg = lerRg();
+  Util::getInstance().start();
+  int i = encontrarBinario(listaSequencial, rg);
+  if (i != -1)
+    cout << "[" << i << "] NOME: " << listaSequencial[i].getNome() << ", RG: " << listaSequencial[i].getRg() << endl;
+  else cout << "RG não encontrado." << endl;
+  Util::getInstance().stopAndPrint();
+}
+
+void Principal::buscaBinariaEncadeada() {
+  int rg = lerRg();
+  Util::getInstance().start();
+  ListaSequencial<Pessoa>* listaIndireta = listaEncadeada.mapToArray();
+  int i = encontrarBinario(*listaIndireta, rg);
+  if (i != -1)
+    cout << "[" << i << "] NOME: " << (*listaIndireta)[i].getNome() << ", RG: " << (*listaIndireta)[i].getRg() << endl;
+  else cout << "RG não encontrado." << endl;
+  Util::getInstance().stopAndPrint();
+  delete listaIndireta;
+}
 
 void Principal::menuSequencial() {
-  short opcao = 12;
+  short opcao = 13;
   int codArquivo = -1;
   do {
     cout << "1 - Carregar Sequencial" << endl;
@@ -312,7 +351,8 @@ void Principal::menuSequencial() {
     cout << "9 - Remover Meio Sequencial" << endl;
     cout << "10 - Salvar Sequencial" << endl;
     cout << "11 - Ordenar Sequencial" << endl;
-    cout << "12 - Voltar" << endl;
+    cout << "12 - Busca Binária RG Sequencial" << endl;
+    cout << "13 - Voltar" << endl;
     cin >> opcao;
     if (opcao == 1) {
       codArquivo = escolherArquivo();
@@ -340,14 +380,16 @@ void Principal::menuSequencial() {
       salvarListaSequencial();
     } else if (opcao == 11) {
       ordenarSequencial();
-    } else if (opcao != 12) {
+    } else if (opcao == 12) {
+      buscaBinariaSequencial();
+    } else if (opcao != 13) {
       cout << "Opção Inválida." << endl;
     }
-  } while (opcao != 12);
+  } while (opcao != 13);
 }
 
 void Principal::menuEncadeada() {
-  short opcao = 12;
+  short opcao = 13;
   int codArquivo = -1;
   do {
     cout << "1 - Carregar Encadeada" << endl;
@@ -361,7 +403,8 @@ void Principal::menuEncadeada() {
     cout << "9 - Remover Meio Encadeada" << endl;
     cout << "10 - Salvar Encadeada" << endl;
     cout << "11 - Ordenar Encadeada" << endl;
-    cout << "12 - Voltar" << endl;
+    cout << "12 - Busca Binária RG Encadeada" << endl;
+    cout << "13 - Voltar" << endl;
     cin >> opcao;
 
     if (opcao == 1) {
@@ -390,10 +433,12 @@ void Principal::menuEncadeada() {
       salvarListaEncadeada();
     } else if (opcao == 11) {
       ordenarEncadeada();
-    } else if (opcao != 12) {
+    } else if (opcao == 12) {
+      buscaBinariaEncadeada();
+    } else if (opcao != 13) {
       cout << "Opção Inválida." << endl;
     }
-  } while (opcao != 12);
+  } while (opcao != 13);
 }
 
 
@@ -417,12 +462,14 @@ void Principal::executar() {
 }
 
 short Principal::menuOrdenar() {
-  short opcao = 5;
+  short opcao = 7;
   cout << "1 - Selection Sort" << endl;
   cout << "2 - Insertion Sort" << endl;
   cout << "3 - Bubble Sort" << endl;
   cout << "4 - Merge Sort" << endl;
-  cout << "5 - Voltar" << endl;
+  cout << "5 - Quick Sort" << endl;
+  cout << "6 - Shell Sort" << endl;
+  cout << "7 - Voltar" << endl;
   cin >> opcao;
   return opcao;
 }
@@ -450,6 +497,16 @@ void Principal::ordenarSequencial() {
     Util::getInstance().stopAndPrint();
     break;
   case 5:
+    Util::getInstance().start();
+    listaSequencial.quick_sort();
+    Util::getInstance().stopAndPrint();
+    break;
+  case 6:
+    Util::getInstance().start();
+    listaSequencial.shell_sort();
+    Util::getInstance().stopAndPrint();
+    break;
+  case 7:
     break;
   default:
     cout << "Opção Inválida." << endl;
@@ -479,7 +536,17 @@ void Principal::ordenarEncadeada() {
     listaEncadeada.merge_sort();
     Util::getInstance().stopAndPrint();
     break;
-  case 5:
+   case 5:
+    Util::getInstance().start();
+    listaEncadeada.quick_sort();
+    Util::getInstance().stopAndPrint();
+    break;
+  case 6:
+    Util::getInstance().start();
+    listaEncadeada.shell_sort();
+    Util::getInstance().stopAndPrint();
+    break;
+  case 7:
     break;
   default:
     cout << "Opção Inválida." << endl;

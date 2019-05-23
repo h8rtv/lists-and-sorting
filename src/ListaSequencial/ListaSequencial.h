@@ -37,4 +37,7 @@ class ListaSequencial {
     void bubble_sort();
     void merge_sort();
     void merge_sort_recursion(Tipo** aux, int comeco, int fim);
+    void quick_sort();
+    void quick_sort_recursion(int comeco, int fim);
+    void shell_sort();
 };

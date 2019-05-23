@@ -236,7 +236,7 @@ void ListaSequencial<Tipo>::merge_sort_recursion(Tipo** aux, int comeco, int fim
     int meio = (comeco + fim) / 2;
     merge_sort_recursion(aux, meio + 1, fim);
     merge_sort_recursion(aux, comeco, meio);
-    Helper::merge(listaSequencial, aux, comeco, meio, fim);
+    Helper::MergeSort::merge(listaSequencial, aux, comeco, meio, fim);
     // Mostrando linha a linha, caso seja uma lista de tamanho menor que 100
     if (tamanho < 100) {
       cout << "Resultados após o merge: " << endl;
@@ -251,6 +251,47 @@ void ListaSequencial<Tipo>::merge_sort_recursion(Tipo** aux, int comeco, int fim
       }
       cout << endl << endl;
     }
+  }
+}
+
+template<class Tipo>
+void ListaSequencial<Tipo>::quick_sort() {
+  quick_sort_recursion(0, tamanho - 1);
+}
+
+template<class Tipo>
+void ListaSequencial<Tipo>::quick_sort_recursion(int comeco, int fim) {
+  Util::getInstance().addC();
+  if (comeco < fim) {
+    int pivo = Helper::QuickSort::particionarHoare(listaSequencial, comeco, fim);
+    quick_sort_recursion(comeco, pivo);
+    quick_sort_recursion(pivo + 1, fim);
+  }
+}
+
+template<class Tipo>
+void ListaSequencial<Tipo>::shell_sort() {
+  Util& util = Util::getInstance();
+  Tipo* pivo;
+  int i,
+      j,
+      h = 1;
+  // definindo o nro de gaps e o gap inicial, que será decrescido, dividindo por 2
+  while (h < tamanho) h = h * 3 + 1;
+  h /= 3;
+
+  while (h > 0) {
+    // insertion com gap h
+    for (i = h; util.addC(), i < tamanho; i++) {
+      util.addM();
+      pivo = listaSequencial[i];
+      for (j = i - h; util.addC(), j >= 0; j -= h)
+        if (util.addC(), *listaSequencial[j] > *pivo)
+          util.addM(), listaSequencial[j + h] = listaSequencial[j];
+        else break;
+      util.addM(), listaSequencial[j + h] = pivo;
+    }
+    h /= 2;
   }
 }
 

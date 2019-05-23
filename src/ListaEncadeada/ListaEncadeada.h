@@ -38,4 +38,6 @@ class ListaEncadeada {
     void insertion_sort();
     void bubble_sort();
     void merge_sort();
+    void quick_sort();
+    void shell_sort();
 };
