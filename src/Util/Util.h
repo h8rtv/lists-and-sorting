@@ -47,7 +47,7 @@ namespace Helper {
     lista[pos2] = tmp;
   }
   namespace QuickSort {
-    /* Algoritimo de particionar vetor: 
+    /* Algoritimo de particionar vetor:
       Organiza os elementos da lista de forma que os elementos maiores
       que o elemento na posição 'pivo' fiquem posteriores e menores fiquem
       anteriores.
@@ -58,7 +58,7 @@ namespace Helper {
       Tipo pivo = *lista[fim];
       for (i = comeco, j = i; i < fim; i++)
         if (*lista[i] < pivo)
-          swap(lista, j++, i);    
+          swap(lista, j++, i);
       swap(lista, j, fim);
       return j;
     }
@@ -71,10 +71,10 @@ namespace Helper {
       // Evita overflow de int comparado com a solução trivial (comeco + fim) / 2,
       // mas é um pouco mais custoso.
       int meio = comeco + (fim - comeco) / 2;
-      
+
       M++;
       Tipo& pivo = *lista[meio];
-      while (true) {
+      while (1) {
         do {
           i++;
           C++;
@@ -92,7 +92,7 @@ namespace Helper {
           return j;
         }
 
-        M += 3;
+        M += 2;
         swap(lista, i, j);
       }
     }

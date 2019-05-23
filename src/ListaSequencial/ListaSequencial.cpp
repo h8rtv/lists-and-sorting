@@ -18,7 +18,7 @@ ListaSequencial<Tipo>::ListaSequencial(int _tamanho, bool _ownerOfObjs):
   listaSequencial(NULL),
   ownerOfObjs(_ownerOfObjs)
 {
-  
+
   if (Util::getInstance().addC(), espacoAlocado > 0)
     instanciar(espacoAlocado);
 }
@@ -264,7 +264,7 @@ void ListaSequencial<Tipo>::quick_sort_recursion(int comeco, int fim) {
   Util::getInstance().addC();
   if (comeco < fim) {
     int pivo = Helper::QuickSort::particionarHoare(listaSequencial, comeco, fim);
-    quick_sort_recursion(comeco, pivo);
+    quick_sort_recursion(comeco, pivo - 1);
     quick_sort_recursion(pivo + 1, fim);
   }
 }
@@ -277,21 +277,20 @@ void ListaSequencial<Tipo>::shell_sort() {
       j,
       h = 1;
   // definindo o nro de gaps e o gap inicial, que será decrescido, dividindo por 2
-  while (h < tamanho) h = h * 3 + 1;
-  h /= 3;
-
+  while (h < tamanho) util.addC(), h = h * 3 + 1;
   while (h > 0) {
+    h /= 3;
     // insertion com gap h
     for (i = h; util.addC(), i < tamanho; i++) {
-      util.addM();
+      j = i;
       pivo = listaSequencial[i];
-      for (j = i - h; util.addC(), j >= 0; j -= h)
-        if (util.addC(), *listaSequencial[j] > *pivo)
-          util.addM(), listaSequencial[j + h] = listaSequencial[j];
-        else break;
-      util.addM(), listaSequencial[j + h] = pivo;
+      util.addC();
+      while (j >= h && *listaSequencial[j - h] > *pivo) {
+        util.addM(), listaSequencial[j] = listaSequencial[j - h];
+        j -= h;
+      }
+      util.addM(), listaSequencial[j] = pivo;
     }
-    h /= 2;
   }
 }
 
