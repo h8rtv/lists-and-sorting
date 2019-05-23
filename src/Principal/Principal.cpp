@@ -297,20 +297,25 @@ void Principal::buscaSequencial() {
 }
 
 int encontrarBinario(ListaSequencial<Pessoa>& lista, int rg) {
+  Util& util = Util::getInstance();
   Pessoa p;
+  int C = 0;
   int comeco = 0;
   int fim = lista.getTamanho() - 1;
   int meio;
   while (comeco <= fim) {
+    C++;
     meio = (fim + comeco) / 2;
     p = lista[meio];
-    if (p.getRg() == rg)
+    if (C++, p.getRg() == rg) {
+      util.addC(C);
       return meio;
-    else if (p.getRg() < rg)
+    } else if (C++, p.getRg() < rg)
       comeco = meio + 1;
     else
       fim = meio - 1;
   }
+  util.addC(C);
   return -1;
 }
 
@@ -351,7 +356,7 @@ void Principal::menuSequencial() {
     cout << "9 - Remover Meio Sequencial" << endl;
     cout << "10 - Salvar Sequencial" << endl;
     cout << "11 - Ordenar Sequencial" << endl;
-    cout << "12 - Busca Binária RG Sequencial" << endl;
+    cout << "12 - Busca Binária RG Sequencial (Somente se a lista já estiver ordenada)" << endl;
     cout << "13 - Voltar" << endl;
     cin >> opcao;
     if (opcao == 1) {
@@ -403,7 +408,7 @@ void Principal::menuEncadeada() {
     cout << "9 - Remover Meio Encadeada" << endl;
     cout << "10 - Salvar Encadeada" << endl;
     cout << "11 - Ordenar Encadeada" << endl;
-    cout << "12 - Busca Binária RG Encadeada" << endl;
+    cout << "12 - Busca Binária RG Encadeada (Somente se a lista já estiver ordenada)" << endl;
     cout << "13 - Voltar" << endl;
     cin >> opcao;
 
